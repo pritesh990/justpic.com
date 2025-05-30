@@ -135,6 +135,77 @@
 
 
 
+/* Order Form Modal */
+.order-form {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 200;
+  justify-content: center;
+  align-items: center;
+}
+
+.order-form.active {
+  display: flex;
+}
+
+.form-content {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.form-content h2 {
+  margin-bottom: 20px;
+}
+
+.form-content input,
+.form-content textarea {
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.order-btn {
+  padding: 10px 20px;
+  background: #022a45;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.order-btn:hover {
+  background-color: #008080;
+}
+
+.close-btn {
+  padding: 10px 20px;
+  background: #ccc;
+  color: #000;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.close-btn:hover {
+  background: #999;
+}
+
+
+
+
 
 /* Product Section */
 .section {
