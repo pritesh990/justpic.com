@@ -21,25 +21,22 @@ if (document.readyState === 'loading') {
 }
 
 function ready() {
-  // Remove from cart
   document.querySelectorAll('.cart-remove').forEach(button => {
     button.addEventListener('click', removeCartItem);
   });
 
-  // Quantity change
   document.querySelectorAll('.cart-quantity').forEach(input => {
     input.addEventListener('change', quantityChanged);
   });
 
-  // Add to cart
   document.querySelectorAll('.btn').forEach(button => {
     button.addEventListener('click', addCartClicked);
   });
 
-  // Buy now
-  document.querySelector('.btn-buy').addEventListener('click', sendOrderToWhatsApp);
+  document.querySelector('.btn-buy').addEventListener('click', () => {
+    document.getElementById("orderForm").classList.add("active");
+  });
 }
-
 
 function removeCartItem(event) {
   event.target.closest('.cart-box').remove();
@@ -110,30 +107,12 @@ function updateTotal() {
   document.querySelector(".total-price").innerText = "₹" + total.toFixed(2);
 }
 
-/* buy now button clicked form*/ 
-
-let buyBtn = document.querySelector(".btn-buy");
-let orderForm = document.getElementById("orderForm");
-let closeForm = document.getElementById("closeForm");
-
-// Show form on Buy Now click
-buyBtn.addEventListener("click", () => {
-  orderForm.classList.add("active");
-});
-
 // Close form on Cancel click
-closeForm.addEventListener("click", () => {
-  orderForm.classList.remove("active");
+document.getElementById("closeForm").addEventListener("click", () => {
+  document.getElementById("orderForm").classList.remove("active");
 });
 
-// Handle form submission
-document.getElementById("checkoutForm").addEventListener("submit", function (e) {
-  e.preventDefault();
-  alert("Order placed successfully!");
-  orderForm.classList.remove("active");
-});
-
-
+// Cart count badge
 let cartCount = 0;
 const addToCartButtons = document.querySelectorAll('.btn');
 const cartCountElement = document.getElementById('cart-count');
@@ -145,8 +124,7 @@ addToCartButtons.forEach(button => {
   });
 });
 
-
-
+// Form submit and send to WhatsApp
 document.getElementById("checkoutForm").addEventListener("submit", function (e) {
   e.preventDefault();
 
@@ -162,7 +140,14 @@ document.getElementById("checkoutForm").addEventListener("submit", function (e) 
     return;
   }
 
+  // Get current order number from localStorage
+  let orderNumber = localStorage.getItem("orderNumber");
+  orderNumber = orderNumber ? parseInt(orderNumber) +1 : 1;
+  localStorage.setItem("orderNumber", orderNumber); // update for next time
+
+  // Build message
   let message = `🛒 *New Order Received on https://justpic-com-sable.vercel.app/*%0A%0A`;
+  message += `🧾 *Order Number:* ${orderNumber}%0A`;  // Order number line
   message += `👤 *Name:* ${name}%0A📞 *Phone:* ${phone}%0A🏠 *Address:* ${address}%0A%0A`;
   message += `🧾 *Order Details:*%0A`;
 
@@ -172,7 +157,7 @@ document.getElementById("checkoutForm").addEventListener("submit", function (e) 
     const title = box.querySelector(".cart-product-title").innerText;
     const priceText = box.querySelector(".cart-price").innerText;
     const quantity = box.querySelector(".cart-quantity").value;
-    
+
     const match = priceText.match(/₹(\d+)/);
     const price = match ? parseFloat(match[1]) : 0;
     const itemTotal = price * quantity;
@@ -181,28 +166,24 @@ document.getElementById("checkoutForm").addEventListener("submit", function (e) 
     message += `${index + 1}. ${title} - ₹${price} × ${quantity} = ₹${itemTotal}%0A`;
   });
 
-  
+  message += `\n📦 *Total Amount:* ₹${totalAmount.toFixed(2)}%0A%0A`;
 
-
-  let totalText = document.querySelector('.total-price').innerText;
-  let total = parseFloat(totalText.replace("₹", ""));
-  message += `\n📦 *Total Amount:* ₹${totalAmount.toFixed(2)}%0A`;
-  if (total <= 99) {
-    message += `\n🚚 Delivery Charge:  (₹99 સુધી ના Order પર delivery ચાર્જ ₹20)`;
+  if (totalAmount <= 99) {
+    message += `🚚 *Delivery Charge:* (₹99 સુધી ના Order પર delivery ચાર્જ ₹20)%0A`;
   } else {
-    message += `\n🚚 Delivery Charge:  (₹100 થી ઉપર ના Order પર delivery ચાર્જ free)`;
+    message += `🚚 *Delivery Charge:* Free (₹100 ઉપર ના Order પર delivery ચાર્જ Free)%0A`;
   }
 
+  message += `%0A📞 *Customer Care Number:* 7041439086`;
 
-  // WhatsApp number (replace with your actual number with country code)
-  const whatsappNumber = "917041439086"; // ← Replace with your WhatsApp number
-
-  const whatsappURL = `https://wa.me/${whatsappNumber}?text=${message}`;
+  // WhatsApp number
+  const whatsappNumber = "917041439086";
 
   // Redirect to WhatsApp
+  const whatsappURL = `https://wa.me/${whatsappNumber}?text=${message}`;
   window.open(whatsappURL, "_blank");
 
-  // Close form after sending
+  // Close form
   document.getElementById("orderForm").classList.remove("active");
 });
 
