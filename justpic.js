@@ -140,14 +140,9 @@ document.getElementById("checkoutForm").addEventListener("submit", function (e) 
     return;
   }
 
-  // Get current order number from localStorage
-  let orderNumber = localStorage.getItem("orderNumber");
-  orderNumber = orderNumber ? parseInt(orderNumber) +1 : 1;
-  localStorage.setItem("orderNumber", orderNumber); // update for next time
 
   // Build message
   let message = `🛒 *New Order Received on https://justpic-com-sable.vercel.app/*%0A%0A`;
-  message += `🧾 *Order Number:* ${orderNumber}%0A`;  // Order number line
   message += `👤 *Name:* ${name}%0A📞 *Phone:* ${phone}%0A🏠 *Address:* ${address}%0A%0A`;
   message += `🧾 *Order Details:*%0A`;
 
@@ -171,10 +166,11 @@ document.getElementById("checkoutForm").addEventListener("submit", function (e) 
   if (totalAmount <= 99) {
     message += `🚚 *Delivery Charge:* (₹99 સુધી ના Order પર delivery ચાર્જ ₹20)%0A`;
   } else {
-    message += `🚚 *Delivery Charge:* Free (₹100 ઉપર ના Order પર delivery ચાર્જ Free)%0A`;
+    message += `🚚 *Delivery Charge:*  (₹100 ઉપર ના Order પર delivery ચાર્જ Free)%0A`;
   }
 
-  message += `%0A📞 *Customer Care Number:* 7041439086`;
+  message += `%0A📞 *Customer Care Number:* 7041439086 %0A`;
+  message += `🕔 *Note:* ડિલિવરી સાંજે 5:00 થી 7:00 વાગ્ય સુધિ માં પોહચાડી દેવમા આવસે.`;
 
   // WhatsApp number
   const whatsappNumber = "917041439086";
@@ -183,8 +179,7 @@ document.getElementById("checkoutForm").addEventListener("submit", function (e) 
   const whatsappURL = `https://wa.me/${whatsappNumber}?text=${message}`;
   window.open(whatsappURL, "_blank");
 
-  // Close form
+    // Close form
   document.getElementById("orderForm").classList.remove("active");
 });
-
 
