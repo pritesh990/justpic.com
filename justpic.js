@@ -124,7 +124,6 @@ addToCartButtons.forEach(button => {
   });
 });
 
-// Form submit and send to WhatsApp
 document.getElementById("checkoutForm").addEventListener("submit", function (e) {
   e.preventDefault();
 
@@ -140,46 +139,67 @@ document.getElementById("checkoutForm").addEventListener("submit", function (e) 
     return;
   }
 
+  // Function to send WhatsApp message after location is ready
+  function sendWhatsAppMessage(locationLink) {
+    let message = `🛒 *New Order Received on https://justpic-com-sable.vercel.app/*%0A%0A`;
+    message += `👤 *Name:* ${name}%0A📞 *Phone:* ${phone}%0A🏠 *Address:* ${address}%0A%0A`;
+    
+    // Add location link if available
+    if (locationLink && !locationLink.startsWith("Location")) {
+      message += `📍 *Live Location:* ${locationLink}%0A%0A`;
+    }
 
-  // Build message
-  let message = `🛒 *New Order Received on https://justpic-com-sable.vercel.app/*%0A%0A`;
-  message += `👤 *Name:* ${name}%0A📞 *Phone:* ${phone}%0A🏠 *Address:* ${address}%0A%0A`;
-  message += `🧾 *Order Details:*%0A`;
+    message += `🧾 *Order Details:*%0A`;
 
-  let totalAmount = 0;
+    let totalAmount = 0;
+    cartItems.forEach((box, index) => {
+      const title = box.querySelector(".cart-product-title").innerText;
+      const priceText = box.querySelector(".cart-price").innerText;
+      const quantity = box.querySelector(".cart-quantity").value;
 
-  cartItems.forEach((box, index) => {
-    const title = box.querySelector(".cart-product-title").innerText;
-    const priceText = box.querySelector(".cart-price").innerText;
-    const quantity = box.querySelector(".cart-quantity").value;
+      const match = priceText.match(/₹(\d+)/);
+      const price = match ? parseFloat(match[1]) : 0;
+      const itemTotal = price * quantity;
 
-    const match = priceText.match(/₹(\d+)/);
-    const price = match ? parseFloat(match[1]) : 0;
-    const itemTotal = price * quantity;
+      totalAmount += itemTotal;
+      message += `${index + 1}. ${title} - ₹${price} × ${quantity} = ₹${itemTotal}%0A`;
+    });
 
-    totalAmount += itemTotal;
-    message += `${index + 1}. ${title} - ₹${price} × ${quantity} = ₹${itemTotal}%0A`;
-  });
+    message += `\n📦 *Total Amount:* ₹${totalAmount.toFixed(2)}%0A%0A`;
 
-  message += `\n📦 *Total Amount:* ₹${totalAmount.toFixed(2)}%0A%0A`;
+    if (totalAmount <= 99) {
+      message += `🚚 *Delivery Charge:* (₹99 સુધી ના Order પર delivery ચાર્જ ₹20)%0A`;
+    } else {
+      message += `🚚 *Delivery Charge:*  (₹100 ઉપર ના Order પર delivery ચાર્જ Free)%0A`;
+    }
 
-  if (totalAmount <= 99) {
-    message += `🚚 *Delivery Charge:* (₹99 સુધી ના Order પર delivery ચાર્જ ₹20)%0A`;
-  } else {
-    message += `🚚 *Delivery Charge:*  (₹100 ઉપર ના Order પર delivery ચાર્જ Free)%0A`;
-  }
+    message += `%0A📞 *Customer Care Number:* 7041439086 %0A`;
+    message += `🕔 *Note:* ડિલિવરી સાંજે 5:00 થી 7:00 વાગ્ય સુધિ માં પોહચાડી દેવમા આવસે.`;
 
-  message += `%0A📞 *Customer Care Number:* 7041439086 %0A`;
-  message += `🕔 *Note:* ડિલિવરી સાંજે 5:00 થી 7:00 વાગ્ય સુધિ માં પોહચાડી દેવમા આવસે.`;
-
-  // WhatsApp number
-  const whatsappNumber = "917041439086";
-
-  // Redirect to WhatsApp
-  const whatsappURL = `https://wa.me/${whatsappNumber}?text=${message}`;
-  window.open(whatsappURL, "_blank");
+    const whatsappNumber = "917041439086";
+    const whatsappURL = `https://wa.me/${whatsappNumber}?text=${message}`;
+    window.open(whatsappURL, "_blank");
 
     // Close form
-  document.getElementById("orderForm").classList.remove("active");
-});
+    document.getElementById("orderForm").classList.remove("active");
+  }
 
+  // Get user location and send message
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+        const locationLink = `https://www.google.com/maps?q=${lat},${lon}`;
+        sendWhatsAppMessage(locationLink);
+      },
+      () => {
+        // Location permission denied or error
+        sendWhatsAppMessage("Location access denied");
+      }
+    );
+  } else {
+    // Geolocation not supported
+    sendWhatsAppMessage("Geolocation not supported");
+  }
+});
