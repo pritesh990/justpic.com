@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Justpic.com</title>
   <link rel="stylesheet" href="justpic.css"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
-</head>
-<body>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
 
   <!-- Header -->
   <header class="head">
     <div class="logo">
       <img src="logo.png" alt="Logo" />
       <div class="icon">
+        <!-- Cart Icon -->
         <i class="fa-solid fa-cart-shopping"></i>
         <span id="cart-count">0</span>
       </div>
@@ -24,27 +24,41 @@
   <div class="cart">
     <h2 class="cart-title">Your Cart</h2>
     <div class="cart-content"></div>
+
+  <div class="cart-sp">
     <div class="total">
       <div class="total-title">Total</div>
       <div class="total-price">₹0.00</div>
-    </div>
-  
-    <h5>₹99 સુધી ના Order પર delivery ચાર્જ ₹20</h5>
-        <h5>₹100 થી ઉપર ના Order પર delivery ચાર્જ free</h5>
+    </div>  
+
     
-    <button type="button" class="btn-buy">Buy Now</button>
+     <div class="cart-imp">
+       <h5>₹99 સુધી ના Order પર delivery ચાર્જ ₹20</h5>
+       <h5>₹100 ઉપર ના Order પર delivery ચાર્જ Free</h5>
+      </div>
+
+        <span class="times">*ડિલિવરી સાંજે 5:00 થી 7:00 વાગ્ય સુધિ માં પોહચાડી દેવમા આવસે.*</span> 
+         
+   
+       <button type="button" class="btn-buy">Buy Now</button>
+
+      
+    
+   </div> 
+
     <i class="fa-solid fa-xmark" id="close-cart"></i>
+ </div>
 
 
-  </div>
 
-  <!-- Order Form Modal -->
+<!-- Order Form Modal -->
  
 <div class="order-form" id="orderForm">
   <div class="form-content">
     <h2>Place Your Order</h2>
     <form id="checkoutForm">
       <input type="text" placeholder="Full Name" required />
+       
       <input type="tel" placeholder="Phone Number" required />
       <textarea placeholder="Address" rows="4" required></textarea>
       <button type="submit" class="order-btn">Order</button>
@@ -52,7 +66,6 @@
     </form>
   </div>
 </div>
-
 
 
   
@@ -77,7 +90,6 @@
           <h1>Onion (ડુંગળી)</h1>
           <h3>₹25 <span>(1 kg)</span></h3>
           <button class="btn">Add</button>
-
         </div>
       </div>
 
@@ -86,7 +98,7 @@
         <img src="tameta.png" alt="Bateka"/>
         <div class="food-text">
           <h1>Tomato (ટામેટા)</h1>
-          <h3>₹25 <span>(1 kg)</span></h3>
+          <h3>₹20 <span>(500 g)</span></h3>
           <button class="btn">Add</button>
         </div>
       </div>
@@ -95,7 +107,7 @@
         <img src="bhindo.png" alt="Bateka"/>
         <div class="food-text">
           <h1>Okra (ભીંડા)</h1>
-          <h3>₹13 <span>(250 g)</span></h3>
+          <h3>₹20 <span>(250 g)</span></h3>
           <button class="btn">Add</button>
         </div>
       </div>
@@ -104,7 +116,7 @@
         <img src="ringna.png" alt="Bateka"/>
         <div class="food-text">
           <h1>Brinjal (રીંગણ)</h1>
-          <h3>₹20 <span>(500 g)</span></h3>
+          <h3>₹18 <span>(500 g)</span></h3>
           <button class="btn">Add</button>
         </div>
       </div>
@@ -113,7 +125,7 @@
         <img src="cobi.png" alt="Bateka"/>
         <div class="food-text">
           <h1>Cabbege (કોબી)</h1>
-          <h3>₹10 <span>(1 Pc)</span></h3>
+          <h3>₹20 <span>(1 kg)</span></h3>
           <button class="btn">Add</button>
         </div>
       </div>
@@ -122,19 +134,19 @@
         <img src="flawar.png" alt="Bateka"/>
         <div class="food-text">
           <h1>Cauliflower (ફૂલકોબી)</h1>
-          <h3>₹22 <span>(1 PC)</span></h3>
+          <h3>₹25 <span>(500 g)</span></h3>
           <button class="btn">Add</button>
         </div>
       </div>
 
-       <div class="food-img">
+       <!--<div class="food-img">
         <img src="mula.jpg" alt="Bateka"/>
         <div class="food-text">
           <h1>Radish (મૂળો)</h1>
           <h3>₹ <span>(1 kg)</span></h3>
           <button class="btn">Add</button>
         </div>
-      </div>
+      </div>-->
 
 
 
@@ -142,21 +154,21 @@
         <img src="gajar.png" alt="Bateka"/>
         <div class="food-text">
           <h1>Carrot (ગાજર)</h1>
-          <h3>₹ <span>(1 kg)</span></h3>
+          <h3>₹17 <span>(500 g)</span></h3>
           <button class="btn">Add</button>
         </div>
       </div>
 
 
 
-       <div class="food-img">
+       <!--<div class="food-img">
         <img src="bit.png" alt="Bateka"/>
         <div class="food-text">
           <h1>Beetroot (બીટરૂટ)</h1>
           <h3>₹18 <span>(500 g)</span></h3>
           <button class="btn">Add</button>
         </div>
-      </div>
+      </div>-->
 
 
 
@@ -164,7 +176,7 @@
         <img src="capsicam.png" alt="Bateka"/>
         <div class="food-text">
           <h1>Capsicum (કેપ્સીકમ)</h1>
-          <h3>₹24 <span>(500 g)</span></h3>
+          <h3>₹25 <span>(500 g)</span></h3>
           <button class="btn">Add</button>
         </div>
       </div>
@@ -175,7 +187,7 @@
         <img src="choli.png" alt="Bateka"/>
         <div class="food-text">
           <h1>Green bean (ચોલી)</h1>
-          <h3>₹20 <span>(500 g)</span></h3>
+          <h3>₹25 <span>(500 g)</span></h3>
           <button class="btn">Add</button>
         </div>
       </div>
@@ -186,7 +198,7 @@
         <img src="dhana.png" alt="Bateka"/>
         <div class="food-text">
           <h1>Coriander (ધાણા)</h1>
-          <h3>₹ <span>(1 kg)</span></h3>
+          <h3>₹20 <span>(100 g)</span></h3>
           <button class="btn">Add</button>
         </div>
       </div>
@@ -197,7 +209,7 @@
         <img src="dudhi.png" alt="Bateka"/>
         <div class="food-text">
           <h1>Bottle gourd (દૂધી)</h1>
-          <h3>₹17.5 <span>(500 g)</span></h3>
+          <h3>₹25 <span>(500 g)</span></h3>
           <button class="btn">Add</button>
         </div>
       </div>
@@ -208,7 +220,7 @@
         <img src="parvat.png" alt="Bateka"/>
         <div class="food-text">
           <h1>Parwal (પર્વત)</h1>
-          <h3>₹17 <span>(250 g)</span></h3>
+          <h3>₹15 <span>(250 g)</span></h3>
           <button class="btn">Add</button>
         </div>
       </div>
@@ -219,21 +231,21 @@
         <img src="karela.png" alt="Bateka"/>
         <div class="food-text">
           <h1>Bitter gourd (કારેલા)</h1>
-          <h3>₹ <span>(1 kg)</span></h3>
+          <h3>₹20 <span>(500 g)</span></h3>
           <button class="btn">Add</button>
         </div>
       </div>
 
 
 
-       <div class="food-img">
+       <!--<div class="food-img">
         <img src="lila-tameta.png" alt="Bateka"/>
         <div class="food-text">
           <h1>Greentomato (લીલાટમેટા)</h1>
           <h3>₹40.04</h3>
           <button class="btn">Add</button>
         </div>
-      </div>
+      </div>-->
 
 
 
@@ -241,7 +253,7 @@
         <img src="guvar.png" alt="Bateka"/>
         <div class="food-text">
           <h1>Gawar phali (ગુવાર)</h1>
-          <h3>₹ <span>(1 kg)</span></h3>
+          <h3>₹35 <span>(250 g)</span></h3>
           <button class="btn">Add</button>
         </div>
       </div>
@@ -263,21 +275,21 @@
         <img src="tindora.png" alt="Bateka"/>
         <div class="food-text">
           <h1>Tvy gourd (ટીંડોરા)</h1>
-         <h3>₹35 <span>(500 g)</span></h3>
+         <h3>₹30 <span>(500 g)</span></h3>
           <button class="btn">Add</button>
         </div>
       </div>
 
 
 
-       <div class="food-img">
+       <!--<div class="food-img">
         <img src="valol.png" alt="Bateka"/>
         <div class="food-text">
           <h1>flat beans (વાલોલ)</h1>
           <h3>₹ <span>(1 kg)</span></h3>
           <button class="btn">Add</button>
         </div>
-      </div>
+      </div>-->
 
 
 
@@ -285,7 +297,7 @@
         <img src="palak.png" alt="Bateka"/>
         <div class="food-text">
           <h1>Spinach (પાલક)</h1>
-           <h3>₹20 <span>(500 g)</span></h3>
+           <h3>₹40 <span>(250 g)</span></h3>
           <button class="btn">Add</button>
        </div>                                                
       </div>
@@ -293,14 +305,14 @@
                                                     
 
 
-      <div class="food-img">
+      <!--<div class="food-img">
         <img src="turiya.png" alt="Bateka"/>
         <div class="food-text">
           <h1>Ridged gourd (તુરિયા)</h1>
           <h3>₹ <span>(500 g)</span></h3>
           <button class="btn">Add</button>
         </div>
-      </div>
+      </div>-->
 
 
 
@@ -308,13 +320,13 @@
         <img src="mirchi.png" alt="Bateka"/>
         <div class="food-text">
           <h1>Chilli spicy (મિર્ચી)</h1>
-          <h3>₹12 <span>(250 g)</span></h3>
+          <h3>₹10 <span>(100 g)</span></h3>
           <button class="btn">Add</button>
         </div>
       </div>
 
 
-       <div class="food-img">
+       <!--<div class="food-img">
         <img src="vatana.png" alt="Bateka"/>
         <div class="food-text">
           <h1>Green peas (વટાણા)</h1>
@@ -331,14 +343,14 @@
           <h3>₹ <span>(500 g)</span></h3>
           <button class="btn">Add</button>
         </div>
-      </div>
+      </div>-->
 
 
        <div class="food-img">
         <img src="mota-march.png" alt="Bateka"/>
         <div class="food-text">
           <h1>Green chilli (મધ્યમ મરચું)</h1>
-          <h3>₹ <span>(500 g)</span></h3>
+          <h3>₹20 <span>(500 g)</span></h3>
           <button class="btn">Add</button>
         </div>
       </div>
@@ -348,7 +360,7 @@
         <img src="aadu.png" alt="Bateka"/>
         <div class="food-text">
           <h1>Ginger (આદુ)</h1>
-          <h3>₹15 <span>(250 g)</span></h3>
+          <h3>₹12 <span>(200 g)</span></h3>
           <button class="btn">Add</button>
         </div>
       </div>
@@ -358,7 +370,7 @@
         <img src="limbu.png" alt="Bateka"/>
         <div class="food-text">
           <h1>lemon (લિમ્બુ)</h1>
-          <h3>₹ <span>(500 g)</span></h3>
+          <h3>₹25 <span>(250 g)</span></h3>
           <button class="btn">Add</button>
         </div>
       </div>
@@ -374,10 +386,9 @@
       </div>
 
 
-    </div>
-   </div> 
-  
+  </div>
+  </div>
 
   <script src="justpic.js"></script>
-</body>
-</html>
+  </body>
+  </html>
