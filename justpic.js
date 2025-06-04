@@ -184,11 +184,18 @@ document.getElementById("checkoutForm").addEventListener("submit", function (e) 
 
   // Get location
   getUserLocation((locationLink) => {
-    message += `%0A📍 *Location:* ${locationLink}`;
-    const whatsappURL = `https://wa.me/917041439086?text=${message}`;
-    window.open(whatsappURL, "_blank");
-    document.getElementById("orderForm").classList.remove("active");
-  });
+  message += `%0A📍 *Location:* ${locationLink}`;
+  
+  // ✅ Save to localStorage
+  const orders = JSON.parse(localStorage.getItem("justpic_orders")) || [];
+  orders.push(message.replace(/%0A/g, "\n"));
+  localStorage.setItem("justpic_orders", JSON.stringify(orders));
+
+  const whatsappURL = `https://wa.me/917041439086?text=${message}`;
+  window.open(whatsappURL, "_blank");
+  document.getElementById("orderForm").classList.remove("active");
+});
+
 
   function getUserLocation(callback) {
     if (navigator.geolocation) {
@@ -205,3 +212,11 @@ document.getElementById("checkoutForm").addEventListener("submit", function (e) 
     }
   }
 });
+
+// Save to localStorage for display
+const orders = JSON.parse(localStorage.getItem("justpic_orders")) || [];
+orders.push(message.replace(/%0A/g, "\n"));
+localStorage.setItem("justpic_orders", JSON.stringify(orders));
+
+
+
