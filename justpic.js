@@ -2,54 +2,48 @@ let cartIcon = document.querySelector(".icon");
 let cart = document.querySelector(".cart");
 let closeCart = document.querySelector("#close-cart");
 
-// Open cart
-cartIcon.addEventListener('click', () => {
-  cart.classList.toggle('active');
-});
-
-// Close cart
-closeCart.addEventListener('click', () => {
-  cart.classList.remove('active');
-});
+// Open/Close Cart
+cartIcon.addEventListener("click", () => cart.classList.toggle("active"));
+closeCart.addEventListener("click", () => cart.classList.remove("active"));
 
 // Ready
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', ready);
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", ready);
 } else {
   ready();
 }
 
 function ready() {
-  document.querySelectorAll('.cart-remove').forEach(button => {
-    button.addEventListener('click', removeCartItem);
-  });
+  document.querySelectorAll(".cart-remove").forEach(button =>
+    button.addEventListener("click", removeCartItem)
+  );
 
-  document.querySelectorAll('.btn').forEach(button => {
-    button.addEventListener('click', addCartClicked);
-  });
+  document.querySelectorAll(".btn").forEach(button =>
+    button.addEventListener("click", addCartClicked)
+  );
 
-  document.querySelector('.btn-buy').addEventListener('click', () => {
+  document.querySelector(".btn-buy").addEventListener("click", () => {
     document.getElementById("orderForm").classList.add("active");
   });
 }
 
 function removeCartItem(event) {
-  event.target.closest('.cart-box').remove();
+  event.target.closest(".cart-box").remove();
   updateTotal();
 }
 
 function addCartClicked(event) {
-  let shopProduct = event.target.closest('.food-img');
-  let title = shopProduct.querySelector('h1').innerText;
-  let price = shopProduct.querySelector('h3').innerText;
-  let productImg = shopProduct.querySelector('img').src;
+  let shopProduct = event.target.closest(".food-img");
+  let title = shopProduct.querySelector("h1").innerText;
+  let price = shopProduct.querySelector("h3").innerText;
+  let productImg = shopProduct.querySelector("img").src;
   addProductToCart(title, price, productImg);
   updateTotal();
 }
 
 function addProductToCart(title, price, productImg) {
-  let cartItems = document.querySelector('.cart-content');
-  let cartItemNames = cartItems.querySelectorAll('.cart-product-title');
+  let cartItems = document.querySelector(".cart-content");
+  let cartItemNames = cartItems.querySelectorAll(".cart-product-title");
 
   for (let name of cartItemNames) {
     if (name.innerText === title) {
@@ -58,8 +52,8 @@ function addProductToCart(title, price, productImg) {
     }
   }
 
-  let cartBox = document.createElement('div');
-  cartBox.classList.add('cart-box');
+  let cartBox = document.createElement("div");
+  cartBox.classList.add("cart-box");
   cartBox.innerHTML = `
     <img src="${productImg}" class="cart-img">
     <div class="detail-box">
@@ -73,20 +67,19 @@ function addProductToCart(title, price, productImg) {
     </div>
     <i class="fa-solid fa-trash cart-remove"></i>
   `;
-
   cartItems.append(cartBox);
 
-  cartBox.querySelector('.cart-remove').addEventListener('click', removeCartItem);
-  setupQuantityButtons(cartBox); // ✅ THIS WAS MISSING
+  cartBox.querySelector(".cart-remove").addEventListener("click", removeCartItem);
+  setupQuantityButtons(cartBox);
   updateTotal();
 }
 
 function setupQuantityButtons(cartBox) {
-  const minusBtn = cartBox.querySelector('.minus');
-  const plusBtn = cartBox.querySelector('.plus');
-  const qtyValue = cartBox.querySelector('.qty-value');
+  const minusBtn = cartBox.querySelector(".minus");
+  const plusBtn = cartBox.querySelector(".plus");
+  const qtyValue = cartBox.querySelector(".qty-value");
 
-  minusBtn.addEventListener('click', () => {
+  minusBtn.addEventListener("click", () => {
     let currentQty = parseInt(qtyValue.textContent);
     if (currentQty > 1) {
       qtyValue.textContent = currentQty - 1;
@@ -94,7 +87,7 @@ function setupQuantityButtons(cartBox) {
     }
   });
 
-  plusBtn.addEventListener('click', () => {
+  plusBtn.addEventListener("click", () => {
     let currentQty = parseInt(qtyValue.textContent);
     if (currentQty < 10) {
       qtyValue.textContent = currentQty + 1;
@@ -121,25 +114,22 @@ function updateTotal() {
   document.querySelector(".total-price").innerText = "₹" + total.toFixed(2);
 }
 
-// Close form on Cancel click
+// Close form on Cancel
 document.getElementById("closeForm").addEventListener("click", () => {
   document.getElementById("orderForm").classList.remove("active");
 });
 
 // Cart count badge
 let cartCount = 0;
-const addToCartButtons = document.querySelectorAll('.btn');
-const cartCountElement = document.getElementById('cart-count');
-
-addToCartButtons.forEach(button => {
-  button.addEventListener('click', () => {
+const cartCountElement = document.getElementById("cart-count");
+document.querySelectorAll(".btn").forEach(button => {
+  button.addEventListener("click", () => {
     cartCount++;
     cartCountElement.textContent = cartCount;
   });
 });
 
-// Form submit and send to WhatsApp
-// WhatsApp form submit
+// Submit form to WhatsApp
 document.getElementById("checkoutForm").addEventListener("submit", function (e) {
   e.preventDefault();
 
@@ -148,14 +138,19 @@ document.getElementById("checkoutForm").addEventListener("submit", function (e) 
   const address = this.querySelector('textarea[placeholder="Address"]').value.trim();
   const cartItems = document.querySelectorAll(".cart-box");
 
+  if (!name || !phone || !address) {
+    alert("Please fill all the form fields.");
+    return;
+  }
+
   if (cartItems.length === 0) {
     alert("Your cart is empty!");
     return;
   }
 
-  let message = `🛒 *New Order Received on https://justpic-com-sable.vercel.app/*%0A%0A`;
-  message += `👤 *Name:* ${name}%0A📞 *Phone:* ${phone}%0A🏠 *Address:* ${address}%0A%0A`;
-  message += `🧾 *Order Details:*%0A`;
+  let plainMessage = `🛒 *New Order Received on https://justpic-com-sable.vercel.app/*\n\n`;
+  plainMessage += `👤 *Name:* ${name}\n📞 *Phone:* ${phone}\n🏠 *Address:* ${address}\n\n`;
+  plainMessage += `🧾 *Order Details:*\n`;
 
   let totalAmount = 0;
 
@@ -165,50 +160,35 @@ document.getElementById("checkoutForm").addEventListener("submit", function (e) 
     const match = priceText.match(/₹(\d+)/);
     const price = match ? parseFloat(match[1]) : 0;
     const quantity = parseInt(box.querySelector(".qty-value").textContent);
-
     const itemTotal = price * quantity;
     totalAmount += itemTotal;
-
-    message += `${index + 1}. ${title} - ₹${price} × ${quantity} = ₹${itemTotal}%0A`;
+    plainMessage += `${index + 1}. ${title} - ₹${price} × ${quantity} = ₹${itemTotal}\n`;
   });
 
-  message += `\n📦 *Total Amount:* ₹${totalAmount.toFixed(2)}%0A%0A`;
+  plainMessage += `\n📦 *Total Amount:* ₹${totalAmount.toFixed(2)}\n`;
 
   if (totalAmount <= 99) {
-    message += `🚚 *Delivery Charge:* (₹99 સુધી ના Order પર delivery ચાર્જ ₹20)%0A`;
+    plainMessage += `🚚 *Delivery Charge:* (₹99 સુધી ના Order પર delivery ચાર્જ ₹20)\n`;
   } else {
-    message += `🚚 *Delivery Charge:* (₹100 ઉપર ના Order પર delivery ચાર્જ Free)%0A`;
+    plainMessage += `🚚 *Delivery Charge:* (₹100 ઉપર ના Order પર delivery ચાર્જ Free)\n`;
   }
 
-  message += `%0A📞 *Customer Care Number:* 7041439086 %0A`;
-  message += `🕔 *Note:* ડિલિવરી સાંજે 5:00 થી 7:00 વાગ્ય સુધી પોહચાડી દેવમાં આવશે.%0A`;
+  plainMessage += `\n📞 *Customer Care:* 7041439086\n`;
+  plainMessage += `🕔 *Note:* ડિલિવરી સાંજે 5:00 થી 7:00 વાગ્યા સુધી પોહચાડી દેવમાં આવશે.\n`;
 
-  // ✅ GET LOCATION & SEND TO WHATSAPP
-  getUserLocation((locationLink) => {
-    message += `%0A📍 *Location:* ${locationLink}`;
-
-    const whatsappURL = `https://wa.me/917041439086?text=${encodeURIComponent(message)}`;
-    window.open(whatsappURL, "_blank");
-
-    // Optional reset after order
-    document.querySelector('.cart-content').innerHTML = '';
-    document.querySelector(".total-price").innerText = "₹0.00";
-    cartCount = 0;
-    cartCountElement.textContent = cartCount;
-    document.getElementById("orderForm").classList.remove("active");
-  });
-});
-
-// ✅ LOCATION FUNCTION (outside submit)
-function getUserLocation(callback) {
-  if (navigator.geolocation) {
+  function getUserLocation(callback) {
+  if ("geolocation" in navigator) {
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        const lat = position.coords.latitude;
-        const lon = position.coords.longitude;
-        callback(`https://www.google.com/maps?q=${lat},${lon}`);
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        const locationLink = `https://www.google.com/maps?q=${latitude},${longitude}`;
+        callback(locationLink);
       },
-      () => callback("Location access denied")
+      (error) => {
+        console.error("Location error:", error);
+        callback("Location not available");
+      }
     );
   } else {
     callback("Geolocation not supported");
@@ -216,5 +196,18 @@ function getUserLocation(callback) {
 }
 
 
+  // Get user location
+  getUserLocation((locationLink) => {
+    plainMessage += `\n📍 *Location:* ${locationLink}`;
 
+    const whatsappURL = `https://wa.me/917041439086?text=${encodeURIComponent(plainMessage)}`;
+    window.open(whatsappURL, "_blank");
 
+    // Reset cart and form UI
+    document.querySelector(".cart-content").innerHTML = "";
+    document.querySelector(".total-price").innerText = "₹0.00";
+    cartCount = 0;
+    cartCountElement.textContent = cartCount;
+    document.getElementById("orderForm").classList.remove("active");
+  });
+});
