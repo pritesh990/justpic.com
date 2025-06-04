@@ -1,4 +1,3 @@
-
 let cartIcon = document.querySelector(".icon");
 let cart = document.querySelector(".cart");
 let closeCart = document.querySelector("#close-cart");
@@ -124,53 +123,52 @@ addToCartButtons.forEach(button => {
   });
 });
 
+// Form submit and send to WhatsApp
 document.getElementById("checkoutForm").addEventListener("submit", function (e) {
   e.preventDefault();
 
   const name = this.querySelector('input[placeholder="Full Name"]').value.trim();
   const phone = this.querySelector('input[placeholder="Phone Number"]').value.trim();
   const address = this.querySelector('textarea[placeholder="Address"]').value.trim();
-
   const cartItems = document.querySelectorAll(".cart-box");
+
   if (cartItems.length === 0) {
     alert("Your cart is empty!");
     return;
   }
 
-  // Get live geolocation during form submission only
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      function (position) {
-        const lat = position.coords.latitude;
-        const lon = position.coords.longitude;
-        const locationLink = `https://www.google.com/maps?q=${lat},${lon}`;
-        buildAndSendMessage(name, phone, address, cartItems, locationLink);
-      },
-      function (error) {
-        let errorMessage = "Location not available or denied";
-        if (error.code === 1) {
-          errorMessage = "User denied location access.";
-        } else if (error.code === 2) {
-          errorMessage = "Location unavailable.";
-        } else if (error.code === 3) {
-          errorMessage = "Location request timed out.";
-        }
-        buildAndSendMessage(name, phone, address, cartItems, errorMessage);
-      },
-      {
-        enableHighAccuracy: true,
-        timeout: 10000,
-        maximumAge: 0,
-      }
-    );
-  } else {
-    buildAndSendMessage(name, phone, address, cartItems, "Geolocation not supported");
-  }
-});
+  // Get location and then redirect to WhatsApp
+  getUserLocation((locationLink) => {
+    message += `%0A📍 *Location:* ${locationLink}`;
 
-function buildAndSendMessage(name, phone, address, cartItems, locationLink) {
+    const whatsappNumber = "917041439086";
+    const whatsappURL = `https://wa.me/${whatsappNumber}?text=${message}`;
+    window.open(whatsappURL, "_blank");
+
+    // Close form
+    document.getElementById("orderForm").classList.remove("active");
+  });
+
+  function getUserLocation(callback) {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+          const link = `https://www.google.com/maps?q=${lat},${lon}`;
+          callback(link);
+        },
+        () => {
+          callback("Location access denied");
+        }
+      );
+    } else {
+      callback("Geolocation not supported");
+    }
+  }
+
   let message = `🛒 *New Order Received on https://justpic-com-sable.vercel.app/*%0A%0A`;
-  message += `👤 *Name:* ${name}%0A📞 *Phone:* ${phone}%0A🏠 *Address:* ${address}%0A🌐 *Location:* ${locationLink}%0A%0A`;
+  message += `👤 *Name:* ${name}%0A📞 *Phone:* ${phone}%0A🏠 *Address:* ${address}%0A%0A`;
   message += `🧾 *Order Details:*%0A`;
 
   let totalAmount = 0;
@@ -197,11 +195,7 @@ function buildAndSendMessage(name, phone, address, cartItems, locationLink) {
   }
 
   message += `%0A📞 *Customer Care Number:* 7041439086 %0A`;
-  message += `🕔 *Note:* ડિલિવરી સાંજે 5:00 થી 7:00 વાગ્ય સુધીમાં પોહચાડી દેવામા આવશે.`;
+  message += `🕔 *Note:* ડિલિવરી સાંજે 5:00 થી 7:00 વાગ્ય સુધિ માં પોહચાડી દેવમા આવસે.`;
 
-  const whatsappNumber = "917041439086";
-  const whatsappURL = `https://wa.me/${whatsappNumber}?text=${message}`;
-  window.open(whatsappURL, "_blank");
-
-  document.getElementById("orderForm").classList.remove("active");
-}
+  
+});
