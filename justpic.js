@@ -137,7 +137,7 @@ document.getElementById("checkoutForm").addEventListener("submit", function (e) 
     return;
   }
 
-  // Get user's live location at time of submit
+  // Get live geolocation during form submission only
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       function (position) {
@@ -147,17 +147,24 @@ document.getElementById("checkoutForm").addEventListener("submit", function (e) 
         buildAndSendMessage(name, phone, address, cartItems, locationLink);
       },
       function (error) {
-        // If location access is denied or fails
-        buildAndSendMessage(name, phone, address, cartItems, "Location not available or denied");
+        let errorMessage = "Location not available or denied";
+        if (error.code === 1) {
+          errorMessage = "User denied location access.";
+        } else if (error.code === 2) {
+          errorMessage = "Location unavailable.";
+        } else if (error.code === 3) {
+          errorMessage = "Location request timed out.";
+        }
+        buildAndSendMessage(name, phone, address, cartItems, errorMessage);
       },
       {
         enableHighAccuracy: true,
         timeout: 10000,
-        maximumAge: 0
+        maximumAge: 0,
       }
     );
   } else {
-    buildAndSendMessage(name, phone, address, cartItems, "Location not supported");
+    buildAndSendMessage(name, phone, address, cartItems, "Geolocation not supported");
   }
 });
 
