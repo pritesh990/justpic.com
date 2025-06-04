@@ -1,3 +1,4 @@
+
 let cartIcon = document.querySelector(".icon");
 let cart = document.querySelector(".cart");
 let closeCart = document.querySelector("#close-cart");
@@ -123,26 +124,46 @@ addToCartButtons.forEach(button => {
   });
 });
 
-// Form submit and send to WhatsApp
 document.getElementById("checkoutForm").addEventListener("submit", function (e) {
   e.preventDefault();
 
-  // Form values
   const name = this.querySelector('input[placeholder="Full Name"]').value.trim();
   const phone = this.querySelector('input[placeholder="Phone Number"]').value.trim();
   const address = this.querySelector('textarea[placeholder="Address"]').value.trim();
 
-  // Get cart items
   const cartItems = document.querySelectorAll(".cart-box");
   if (cartItems.length === 0) {
     alert("Your cart is empty!");
     return;
   }
 
+  // Get user's live location at time of submit
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      function (position) {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+        const locationLink = `https://www.google.com/maps?q=${lat},${lon}`;
+        buildAndSendMessage(name, phone, address, cartItems, locationLink);
+      },
+      function (error) {
+        // If location access is denied or fails
+        buildAndSendMessage(name, phone, address, cartItems, "Location not available or denied");
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 0
+      }
+    );
+  } else {
+    buildAndSendMessage(name, phone, address, cartItems, "Location not supported");
+  }
+});
 
-  // Build message
+function buildAndSendMessage(name, phone, address, cartItems, locationLink) {
   let message = `🛒 *New Order Received on https://justpic-com-sable.vercel.app/*%0A%0A`;
-  message += `👤 *Name:* ${name}%0A📞 *Phone:* ${phone}%0A🏠 *Address:* ${address}%0A%0A`;
+  message += `👤 *Name:* ${name}%0A📞 *Phone:* ${phone}%0A🏠 *Address:* ${address}%0A🌐 *Location:* ${locationLink}%0A%0A`;
   message += `🧾 *Order Details:*%0A`;
 
   let totalAmount = 0;
@@ -165,19 +186,15 @@ document.getElementById("checkoutForm").addEventListener("submit", function (e) 
   if (totalAmount <= 99) {
     message += `🚚 *Delivery Charge:* (₹99 સુધી ના Order પર delivery ચાર્જ ₹20)%0A`;
   } else {
-    message += `🚚 *Delivery Charge:*  (₹100 ઉપર ના Order પર delivery ચાર્જ Free)%0A`;
+    message += `🚚 *Delivery Charge:* (₹100 ઉપર ના Order પર delivery ચાર્જ Free)%0A`;
   }
 
   message += `%0A📞 *Customer Care Number:* 7041439086 %0A`;
-  message += `🕔 *Note:* ડિલિવરી સાંજે 5:00 થી 7:00 વાગ્ય સુધિ માં પોહચાડી દેવમા આવસે.`;
+  message += `🕔 *Note:* ડિલિવરી સાંજે 5:00 થી 7:00 વાગ્ય સુધીમાં પોહચાડી દેવામા આવશે.`;
 
-  // WhatsApp number
   const whatsappNumber = "917041439086";
-
-  // Redirect to WhatsApp
   const whatsappURL = `https://wa.me/${whatsappNumber}?text=${message}`;
   window.open(whatsappURL, "_blank");
 
-    // Close form
   document.getElementById("orderForm").classList.remove("active");
-});
+}
