@@ -139,6 +139,7 @@ addToCartButtons.forEach(button => {
 });
 
 // Form submit and send to WhatsApp
+// WhatsApp form submit
 document.getElementById("checkoutForm").addEventListener("submit", function (e) {
   e.preventDefault();
 
@@ -182,27 +183,37 @@ document.getElementById("checkoutForm").addEventListener("submit", function (e) 
   message += `%0A📞 *Customer Care Number:* 7041439086 %0A`;
   message += `🕔 *Note:* ડિલિવરી સાંજે 5:00 થી 7:00 વાગ્ય સુધી પોહચાડી દેવમાં આવશે.%0A`;
 
-  // Get location
+  // ✅ GET LOCATION & SEND TO WHATSAPP
   getUserLocation((locationLink) => {
-  message += `%0A📍 *Location:* ${locationLink}`;
+    message += `%0A📍 *Location:* ${locationLink}`;
 
+    const whatsappURL = `https://wa.me/917041439086?text=${encodeURIComponent(message)}`;
+    window.open(whatsappURL, "_blank");
 
-  function getUserLocation(callback) {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const lat = position.coords.latitude;
-          const lon = position.coords.longitude;
-          callback(`https://www.google.com/maps?q=${lat},${lon}`);
-        },
-        () => callback("Location access denied")
-      );
-    } else {
-      callback("Geolocation not supported");
-    }
-  }
+    // Optional reset after order
+    document.querySelector('.cart-content').innerHTML = '';
+    document.querySelector(".total-price").innerText = "₹0.00";
+    cartCount = 0;
+    cartCountElement.textContent = cartCount;
+    document.getElementById("orderForm").classList.remove("active");
+  });
 });
 
+// ✅ LOCATION FUNCTION (outside submit)
+function getUserLocation(callback) {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+        callback(`https://www.google.com/maps?q=${lat},${lon}`);
+      },
+      () => callback("Location access denied")
+    );
+  } else {
+    callback("Geolocation not supported");
+  }
+}
 
 
 
