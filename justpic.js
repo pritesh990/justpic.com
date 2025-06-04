@@ -24,10 +24,6 @@ function ready() {
     button.addEventListener('click', removeCartItem);
   });
 
-  document.querySelectorAll('.cart-quantity').forEach(input => {
-    input.addEventListener('change', quantityChanged);
-  });
-
   document.querySelectorAll('.btn').forEach(button => {
     button.addEventListener('click', addCartClicked);
   });
@@ -39,14 +35,6 @@ function ready() {
 
 function removeCartItem(event) {
   event.target.closest('.cart-box').remove();
-  updateTotal();
-}
-
-function quantityChanged(event) {
-  let input = event.target;
-  if (isNaN(input.value) || input.value <= 0) {
-    input.value = 1;
-  }
   updateTotal();
 }
 
@@ -77,7 +65,11 @@ function addProductToCart(title, price, productImg) {
     <div class="detail-box">
       <div class="cart-product-title">${title}</div>
       <div class="cart-price">${price}</div>
-      <input type="number" value="1" class="cart-quantity">
+      <div class="quantity-controls">
+        <button class="qty-btn minus">-</button>
+        <span class="qty-value">1</span>
+        <button class="qty-btn plus">+</button>
+      </div>
     </div>
     <i class="fa-solid fa-trash cart-remove"></i>
   `;
@@ -85,7 +77,30 @@ function addProductToCart(title, price, productImg) {
   cartItems.append(cartBox);
 
   cartBox.querySelector('.cart-remove').addEventListener('click', removeCartItem);
-  cartBox.querySelector('.cart-quantity').addEventListener('change', quantityChanged);
+  setupQuantityButtons(cartBox); // ✅ THIS WAS MISSING
+  updateTotal();
+}
+
+function setupQuantityButtons(cartBox) {
+  const minusBtn = cartBox.querySelector('.minus');
+  const plusBtn = cartBox.querySelector('.plus');
+  const qtyValue = cartBox.querySelector('.qty-value');
+
+  minusBtn.addEventListener('click', () => {
+    let currentQty = parseInt(qtyValue.textContent);
+    if (currentQty > 1) {
+      qtyValue.textContent = currentQty - 1;
+      updateTotal();
+    }
+  });
+
+  plusBtn.addEventListener('click', () => {
+    let currentQty = parseInt(qtyValue.textContent);
+    if (currentQty < 10) {
+      qtyValue.textContent = currentQty + 1;
+      updateTotal();
+    }
+  });
 }
 
 function updateTotal() {
@@ -97,7 +112,7 @@ function updateTotal() {
     let match = priceText.match(/₹(\d+)/);
     if (match) {
       let price = parseFloat(match[1]);
-      let quantity = parseInt(box.querySelector(".cart-quantity").value);
+      let quantity = parseInt(box.querySelector(".qty-value").textContent);
       total += price * quantity;
     }
   });
@@ -137,36 +152,6 @@ document.getElementById("checkoutForm").addEventListener("submit", function (e) 
     return;
   }
 
-  // Get location and then redirect to WhatsApp
-  getUserLocation((locationLink) => {
-    message += `%0A📍 *Location:* ${locationLink}`;
-
-    const whatsappNumber = "917041439086";
-    const whatsappURL = `https://wa.me/${whatsappNumber}?text=${message}`;
-    window.open(whatsappURL, "_blank");
-
-    // Close form
-    document.getElementById("orderForm").classList.remove("active");
-  });
-
-  function getUserLocation(callback) {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const lat = position.coords.latitude;
-          const lon = position.coords.longitude;
-          const link = `https://www.google.com/maps?q=${lat},${lon}`;
-          callback(link);
-        },
-        () => {
-          callback("Location access denied");
-        }
-      );
-    } else {
-      callback("Geolocation not supported");
-    }
-  }
-
   let message = `🛒 *New Order Received on https://justpic-com-sable.vercel.app/*%0A%0A`;
   message += `👤 *Name:* ${name}%0A📞 *Phone:* ${phone}%0A🏠 *Address:* ${address}%0A%0A`;
   message += `🧾 *Order Details:*%0A`;
@@ -176,13 +161,13 @@ document.getElementById("checkoutForm").addEventListener("submit", function (e) 
   cartItems.forEach((box, index) => {
     const title = box.querySelector(".cart-product-title").innerText;
     const priceText = box.querySelector(".cart-price").innerText;
-    const quantity = box.querySelector(".cart-quantity").value;
-
     const match = priceText.match(/₹(\d+)/);
     const price = match ? parseFloat(match[1]) : 0;
-    const itemTotal = price * quantity;
+    const quantity = parseInt(box.querySelector(".qty-value").textContent);
 
+    const itemTotal = price * quantity;
     totalAmount += itemTotal;
+
     message += `${index + 1}. ${title} - ₹${price} × ${quantity} = ₹${itemTotal}%0A`;
   });
 
@@ -195,7 +180,28 @@ document.getElementById("checkoutForm").addEventListener("submit", function (e) 
   }
 
   message += `%0A📞 *Customer Care Number:* 7041439086 %0A`;
-  message += `🕔 *Note:* ડિલિવરી સાંજે 5:00 થી 7:00 વાગ્ય સુધિ માં પોહચાડી દેવમા આવસે.`;
+  message += `🕔 *Note:* ડિલિવરી સાંજે 5:00 થી 7:00 વાગ્ય સુધી પોહચાડી દેવમાં આવશે.%0A`;
 
-  
+  // Get location
+  getUserLocation((locationLink) => {
+    message += `%0A📍 *Location:* ${locationLink}`;
+    const whatsappURL = `https://wa.me/917041439086?text=${message}`;
+    window.open(whatsappURL, "_blank");
+    document.getElementById("orderForm").classList.remove("active");
+  });
+
+  function getUserLocation(callback) {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+          callback(`https://www.google.com/maps?q=${lat},${lon}`);
+        },
+        () => callback("Location access denied")
+      );
+    } else {
+      callback("Geolocation not supported");
+    }
+  }
 });
