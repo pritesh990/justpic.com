@@ -180,7 +180,7 @@ document.getElementById("checkoutForm").addEventListener("submit", function (e) 
   }
 
   plainMessage += `\n📞 *Customer Care:* 9954887337\n`;
-  plainMessage += `🕔 *Note:* ડિલિવરી સાંજે 5:00 થી 7:00 વાગ્યા સુધી પોહચાડી દેવમાં આવશે.\n`;
+  plainMessage += `🕔 *Note:* ડિલિવરી સાંજે 5 AM થી 7 AM વાગ્યા સુધી પોહચાડી દેવમાં આવશે.\n`;
 
   function getUserLocation(callback) {
   if ("geolocation" in navigator) {
