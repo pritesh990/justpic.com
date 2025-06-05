@@ -305,6 +305,10 @@
   padding: 50px;
   text-align: center;
 }
+.section h1{
+  color:#008080;
+  font-weight:bold;
+}
 .food {
   display: flex;
   justify-content: center;
