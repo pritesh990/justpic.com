@@ -182,7 +182,7 @@
 
 /* CART BOTTOM */
 .cart-sp {
-  height: 40%;
+  height: 50%;
   position: sticky;
   bottom: 0;
   background: #fff;
@@ -218,8 +218,9 @@
   background: #171427;
 }
 .cart-imp{
-  height: 55px;
+  height: 80px;
   padding: 5px;
+  margin:10px;
 }
 .times{
   font-weight: bold;
