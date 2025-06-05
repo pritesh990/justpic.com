@@ -165,6 +165,12 @@ document.getElementById("checkoutForm").addEventListener("submit", function (e) 
     plainMessage += `${index + 1}. ${title} - ₹${price} × ${quantity} = ₹${itemTotal}\n`;
   });
 
+  // ✅ Check for minimum order amount
+  if (totalAmount < 70) {
+  alert("⚠️ Minimum order amount is ₹70. Please add more items to your cart.\n\nઓછા મા ઓછો ઓર્ડર ₹70 હસે તોજ ઓર્ડર લેવામાં આવશે.");
+  return;
+}
+
   plainMessage += `\n📦 *Total Amount:* ₹${totalAmount.toFixed(2)}\n`;
 
   if (totalAmount <= 99) {
