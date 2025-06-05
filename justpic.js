@@ -200,7 +200,7 @@ document.getElementById("checkoutForm").addEventListener("submit", function (e) 
   getUserLocation((locationLink) => {
     plainMessage += `\n📍 *Location:* ${locationLink}`;
 
-    const whatsappURL = `https://wa.me/917041439086?text=${encodeURIComponent(plainMessage)}`;
+    const whatsappURL = `https://wa.me/919054887337?text=${encodeURIComponent(plainMessage)}`;
     window.open(whatsappURL, "_blank");
 
     // Reset cart and form UI
