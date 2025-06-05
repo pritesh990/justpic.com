@@ -173,7 +173,7 @@ document.getElementById("checkoutForm").addEventListener("submit", function (e) 
     plainMessage += `🚚 *Delivery Charge:* (₹100 ઉપર ના Order પર delivery ચાર્જ Free)\n`;
   }
 
-  plainMessage += `\n📞 *Customer Care:* 7041439086\n`;
+  plainMessage += `\n📞 *Customer Care:* 9954887337\n`;
   plainMessage += `🕔 *Note:* ડિલિવરી સાંજે 5:00 થી 7:00 વાગ્યા સુધી પોહચાડી દેવમાં આવશે.\n`;
 
   function getUserLocation(callback) {
