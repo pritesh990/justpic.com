@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Justpic.com - Offer Page</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f9fdfc;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 50px auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #008080;
+      margin-bottom: 10px;
+    }
+
+    p.sub {
+      color: #333;
+      font-size: 18px;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    .claim-btn {
+      background-color: #fd4646;
+      color: white;
+      padding: 12px 30px;
+      border: none;
+      border-radius: 30px;
+      font-size: 17px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      margin-bottom: 20px;
+    }
+
+    .claim-btn:hover {
+      background-color: #022a45;
+    }
+
+    form {
+      display: none;
+      text-align: left;
+    }
+
+    form input, form textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    .btn {
+      background-color: #022a45;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 25px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #008080;
+    }
+
+    .success-box {
+      margin-top: 30px;
+      background: #e6fff2;
+      border-left: 6px solid #28a745;
+      padding: 20px;
+      border-radius: 10px;
+      font-size: 17px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>🎁 Special Offer</h1>
+    <p class="sub">Order for 30 continuous days and get ₹100 off!</p>
+    <p class="sub">(તમે 30 દિવસ દરરોજ ઓર્ડર કરસો તો તમને ઓફર મલસે ₹100 રુપિયા નો ઓર્ડર ફ્રી  ફ્રી  ફ્રી)</p>
+
+    <!-- Claim Offer Button -->
+    <button class="claim-btn" onclick="document.getElementById('offerForm').style.display='block'; this.style.display='none';">
+      Claim Offer
+    </button>
+
+    <!-- Hidden Form -->
+    <form id="offerForm">
+      <input type="text" name="name" placeholder="Full Name" required />
+      <input type="tel" name="phone" placeholder="Phone Number" required />
+      <textarea name="address" placeholder="Address" rows="4" required></textarea>
+      <button type="submit" class="btn">Submit Offer</button>
+    </form>
+
+    <!-- Show confirmation here -->
+    <div id="offerResult" class="success-box" style="display:none;"></div>
+  </div>
+
+  <script>
+    document.getElementById('offerForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = this.name.value.trim();
+      const phone = this.phone.value.trim();
+      const address = this.address.value.trim();
+      const date = new Date().toLocaleString();
+
+      if (!name || !phone || !address) {
+        alert("Please fill in all fields.");
+        return;
+      }
+
+      const resultBox = document.getElementById('offerResult');
+      resultBox.style.display = 'block';
+      resultBox.innerHTML = `
+        <strong>✔ Offer Claimed Successfully!</strong><br><br>
+        👤 <b>Name:</b> ${name}<br>
+        📞 <b>Phone:</b> ${phone}<br>
+        🏠 <b>Address:</b> ${address}<br>
+        📅 <b>Date:</b> ${date}<br>
+        🎁 <b>Offer:</b> ₹100 FREE on 30 Days Order
+      `;
+
+      this.reset();
+    });
+  </script>
+
+</body>
+</html>
