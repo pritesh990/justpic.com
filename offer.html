@@ -157,32 +157,50 @@
   </div>
 
   <script>
-    document.getElementById('offerForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const name = this.name.value.trim();
-      const phone = this.phone.value.trim();
-      const address = this.address.value.trim();
-      const date = new Date().toLocaleString();
+  document.getElementById('offerForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const name = this.name.value.trim();
+    const phone = this.phone.value.trim();
+    const address = this.address.value.trim();
+    const date = new Date().toLocaleString();
 
-      if (!name || !phone || !address) {
-        alert("Please fill in all fields.");
-        return;
-      }
+    if (!name || !phone || !address) {
+      alert("Please fill in all fields.");
+      return;
+    }
 
-      const resultBox = document.getElementById('offerResult');
-      resultBox.style.display = 'block';
-      resultBox.innerHTML = `
-        <strong>✔ Offer Claimed Successfully!</strong><br><br>
-        👤 <b>Name:</b> ${name}<br>
-        📞 <b>Phone:</b> ${phone}<br>
-        🏠 <b>Address:</b> ${address}<br>
-        📅 <b>Date:</b> ${date}<br>
-        🎁 <b>Offer:</b> ₹100 FREE on 30 Days Order
-      `;
+    // ✅ WhatsApp Message Format
+    const message = `
+🛒 *New Offer Claim on Justpic.com*
 
-      this.reset();
-    });
-  </script>
+👤 *Name:* ${name}
+📞 *Phone:* ${phone}
+🏠 *Address:* ${address}
+📅 *Date:* ${date}
+🎁 *Offer:* 30 Days Order = ₹100 FREE
+    `.trim();
+
+    // ✅ WhatsApp Redirect
+    const whatsappNumber = "919054887337"; // ← Replace with your real WhatsApp number (with country code)
+    const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+
+    window.open(whatsappURL, "_blank");
+
+    // ✅ Optional: show success message too
+    const resultBox = document.getElementById('offerResult');
+    resultBox.style.display = 'block';
+    resultBox.innerHTML = `
+      <strong>✔ Offer Claimed Successfully!</strong><br><br>
+      👤 <b>Name:</b> ${name}<br>
+      📞 <b>Phone:</b> ${phone}<br>
+      🏠 <b>Address:</b> ${address}<br>
+      📅 <b>Date:</b> ${date}<br>
+      🎁 <b>Offer:</b> ₹100 FREE on 30 Days Order
+    `;
+
+    this.reset();
+  });
+</script>
 
 </body>
 </html>
