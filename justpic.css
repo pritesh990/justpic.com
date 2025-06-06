@@ -36,6 +36,31 @@
   color: red;
 }
 
+.offer{
+   background-clip: padding-box;
+    border-radius: .25rem;
+    border-color: white;
+    box-sizing: border-box;
+    font-family: system-ui, -apple-system, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.25;
+    margin: 0;
+    position: relative;
+    text-decoration: none;
+    padding: 10px;
+    background-color: black;
+    color: #fff;
+    margin: 3px;
+}
+.offer:hover{
+  transition: 0.3s ease-out;
+  background-color: #28a745;
+  color: #fff;
+  
+}
+
+
 #cart-count {
 
   margin-right: 30px;
