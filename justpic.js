@@ -1,3 +1,4 @@
+
 let cartIcon = document.querySelector(".icon");
 let cart = document.querySelector(".cart");
 let closeCart = document.querySelector("#close-cart");
@@ -217,3 +218,5 @@ document.getElementById("checkoutForm").addEventListener("submit", function (e) 
     document.getElementById("orderForm").classList.remove("active");
   });
 });
+
+
