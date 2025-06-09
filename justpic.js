@@ -35,7 +35,7 @@ function removeCartItem(event) {
 function addCartClicked(event) {
   let shopProduct = event.target.closest(".food-img");
   let title = shopProduct.querySelector("h1").innerText;
-  let price = shopProduct.querySelector("h3").innerText;
+  let price = shopProduct.querySelector("h3").childNodes[0].textContent.trim().split(" ")[0];
   let productImg = shopProduct.querySelector("img").src;
   addProductToCart(title, price, productImg);
   updateTotal();
