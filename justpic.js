@@ -152,7 +152,7 @@ document.getElementById("checkoutForm").addEventListener("submit", function (e) 
     return;
   }
 
-  let plainMessage = `🛒 *New Order Received on Justpic.com*\n\n`;
+  let plainMessage = `🛒 *New Order Received on https://justpic-com-sable.vercel.app/*\n\n`;
   plainMessage += `👤 *Name:* ${name}\n📞 *Phone:* ${phone}\n🏠 *Address:* ${address}\n\n`;
   plainMessage += `🧾 *Order Details:*\n`;
 
@@ -182,7 +182,7 @@ document.getElementById("checkoutForm").addEventListener("submit", function (e) 
     plainMessage += `🚚 *Delivery Charge:* Free (₹100 ઉપર ઓર્ડર માટે)\n`;
   }
 
-  plainMessage += `\n📞 *Customer Care:* 9954887337\n`;
+  plainMessage += `\n📞 *Customer Care:* 9054887337\n`;
   plainMessage += `🕔 *Delivery Time:* 9 AM to 11 AM\n`;
 
   function getUserLocation(callback) {
