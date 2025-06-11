@@ -334,7 +334,6 @@
   padding: 50px;
   text-align: center;
 }
-
 .section h1{
   color: #008080;
   font-weight: bold;
@@ -388,6 +387,7 @@
 .food-text h3 {
   color: #333;
   font-size: 25px;
+  
 }
 .old-price {
   text-decoration: line-through;
@@ -399,7 +399,7 @@
 .btn {
   width: 100%;
   margin-top: 10px;
-   background: #022a45;
+  background: #022a45;
   color: white;
   border: none;
   padding: 13px;
@@ -409,11 +409,24 @@
   font-weight: bold;
   transition: 0.3s ease;
 }
+
 .btn:hover {
-  
-  background-color: black;
+  background-color: #f5f5f5;
   width: 90%;
+  color: black;
+  border: 1px solid black;
 }
+
+/* 🔥 Ye hi hover-style permanently apply hoga jab user click kare */
+.btn.added {
+  background-color: #f5f5f5;
+  width: 90%;
+  color: black;
+  border: 1px solid black;
+  cursor: default;
+}
+
+
 
 
 
@@ -543,7 +556,7 @@
     justify-content: space-between;
     padding: 10px;
   }
-  
+
   /* 50% OFF Ribbon Badge */
 .discount-badge {
   position: absolute;
@@ -560,7 +573,6 @@
   border-radius: 3px;
   font-family: 'Poppins', sans-serif;
 }
-
 
   .food-img {
     width: 100%;
