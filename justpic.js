@@ -1,45 +1,42 @@
 let cartIcon = document.querySelector(".icon");
 let cart = document.querySelector(".cart");
 let closeCart = document.querySelector("#close-cart");
+let cartCount = 0;
+const cartCountElement = document.getElementById("cart-count");
 
 // Open/Close Cart
 cartIcon.addEventListener("click", () => cart.classList.toggle("active"));
 closeCart.addEventListener("click", () => cart.classList.remove("active"));
 
-// On page ready
+// DOM Ready
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", ready);
 } else {
   ready();
 }
 
-let cartCount = 0;
-const cartCountElement = document.getElementById("cart-count");
-
 function ready() {
   document.querySelectorAll(".cart-remove").forEach(button =>
     button.addEventListener("click", removeCartItem)
   );
 
-  document.querySelectorAll(".btn").forEach(button =>
-    button.addEventListener("click", addCartClicked)
-  );
+  document.querySelectorAll(".btn").forEach(button => {
+    button.addEventListener("click", function (event) {
+      addCartClicked(event);
+      this.classList.add("added");
+      this.innerText = "Added";
+      this.disabled = true;
+    });
+  });
 
-  // ✅ Buy Now opens form
   document.querySelector(".btn-buy").addEventListener("click", (e) => {
     e.preventDefault();
-    cart.classList.remove("active"); // close cart if open
+    cart.classList.remove("active");
     document.getElementById("orderForm").classList.add("active");
   });
 }
 
-// Remove item
-function removeCartItem(event) {
-  event.target.closest(".cart-box").remove();
-  updateTotal();
-}
-
-// Add from homepage
+// Add to Cart from homepage
 function addCartClicked(event) {
   let shopProduct = event.target.closest(".food-img");
   let title = shopProduct.querySelector("h1").innerText;
@@ -52,7 +49,7 @@ function addCartClicked(event) {
   cartCountElement.textContent = cartCount;
 }
 
-// Add to cart
+// Add item HTML to cart
 function addProductToCart(title, price, productImg) {
   let cartItems = document.querySelector(".cart-content");
   let cartItemNames = cartItems.querySelectorAll(".cart-product-title");
@@ -86,7 +83,7 @@ function addProductToCart(title, price, productImg) {
   updateTotal();
 }
 
-// Quantity +/- in cart
+// Setup quantity +/-
 function setupQuantityButtons(cartBox) {
   const minusBtn = cartBox.querySelector(".minus");
   const plusBtn = cartBox.querySelector(".plus");
@@ -109,7 +106,32 @@ function setupQuantityButtons(cartBox) {
   });
 }
 
-// Total calculation
+// Remove cart item
+function removeCartItem(event) {
+  const cartBox = event.target.closest(".cart-box");
+  const removedTitle = cartBox.querySelector(".cart-product-title").innerText;
+  cartBox.remove();
+  updateTotal();
+
+  // Reset Add button on homepage
+  document.querySelectorAll(".food-img").forEach((product) => {
+    const title = product.querySelector("h1").innerText;
+    if (title === removedTitle) {
+      const addBtn = product.querySelector(".btn");
+      if (addBtn) {
+        addBtn.disabled = false;
+        addBtn.innerText = "Add";
+        addBtn.classList.remove("added");
+      }
+    }
+  });
+
+  // Update cart count
+  cartCount--;
+  cartCountElement.textContent = cartCount;
+}
+
+// Update total price
 function updateTotal() {
   let cartBoxes = document.querySelectorAll(".cart-box");
   let total = 0;
@@ -128,12 +150,12 @@ function updateTotal() {
   document.querySelector(".total-price").innerText = "₹" + total.toFixed(2);
 }
 
-// Close form
+// Close order form
 document.getElementById("closeForm").addEventListener("click", () => {
   document.getElementById("orderForm").classList.remove("active");
 });
 
-// Order form submit to WhatsApp
+// Submit order to WhatsApp
 document.getElementById("checkoutForm").addEventListener("submit", function (e) {
   e.preventDefault();
 
@@ -185,25 +207,6 @@ document.getElementById("checkoutForm").addEventListener("submit", function (e) 
   plainMessage += `\n📞 *Customer Care:* 9054887337\n`;
   plainMessage += `🕔 *Delivery Time:* 9 AM to 11 AM\n`;
 
-  function getUserLocation(callback) {
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const latitude = position.coords.latitude;
-          const longitude = position.coords.longitude;
-          const locationLink = `https://www.google.com/maps?q=${latitude},${longitude}`;
-          callback(locationLink);
-        },
-        (error) => {
-          console.error("Location error:", error);
-          callback("Location not available");
-        }
-      );
-    } else {
-      callback("Geolocation not supported");
-    }
-  }
-
   getUserLocation((locationLink) => {
     plainMessage += `\n📍 *Location:* ${locationLink}`;
     const whatsappURL = `https://wa.me/919054887337?text=${encodeURIComponent(plainMessage)}`;
@@ -217,3 +220,23 @@ document.getElementById("checkoutForm").addEventListener("submit", function (e) 
     document.getElementById("orderForm").classList.remove("active");
   });
 });
+
+// Get user live location
+function getUserLocation(callback) {
+  if ("geolocation" in navigator) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        const locationLink = `https://www.google.com/maps?q=${latitude},${longitude}`;
+        callback(locationLink);
+      },
+      (error) => {
+        console.error("Location error:", error);
+        callback("Location not available");
+      }
+    );
+  } else {
+    callback("Geolocation not supported");
+  }
+}
