@@ -83,7 +83,7 @@ function addProductToCart(title, price, productImg) {
   updateTotal();
 }
 
-// Setup quantity +/-
+// Setup quantity +/- buttons
 function setupQuantityButtons(cartBox) {
   const minusBtn = cartBox.querySelector(".minus");
   const plusBtn = cartBox.querySelector(".plus");
@@ -113,7 +113,6 @@ function removeCartItem(event) {
   cartBox.remove();
   updateTotal();
 
-  // Reset Add button on homepage
   document.querySelectorAll(".food-img").forEach((product) => {
     const title = product.querySelector("h1").innerText;
     if (title === removedTitle) {
@@ -126,7 +125,6 @@ function removeCartItem(event) {
     }
   });
 
-  // Update cart count
   cartCount--;
   cartCountElement.textContent = cartCount;
 }
@@ -186,9 +184,22 @@ document.getElementById("checkoutForm").addEventListener("submit", function (e) 
     const match = priceText.match(/₹(\d+)/);
     const price = match ? parseFloat(match[1]) : 0;
     const quantity = parseInt(box.querySelector(".qty-value").textContent);
+
+    // ✅ Get the weight from the homepage card
+    const foodCard = Array.from(document.querySelectorAll(".food-img")).find(card =>
+      card.querySelector("h1").innerText === title
+    );
+    let weight = "";
+    if (foodCard) {
+      const weightSpan = foodCard.querySelector("h3 span:last-child");
+      weight = weightSpan ? weightSpan.innerText.trim() : "";
+    }
+
     const itemTotal = price * quantity;
     totalAmount += itemTotal;
-    plainMessage += `${index + 1}. ${title} - ₹${price} × ${quantity} = ₹${itemTotal}\n`;
+
+    // ✅ WhatsApp order line format
+    plainMessage += `${index + 1}. ${title} - ₹${price} ${weight} × ${quantity} = ₹${itemTotal}\n`;
   });
 
   if (totalAmount < 70) {
@@ -212,7 +223,7 @@ document.getElementById("checkoutForm").addEventListener("submit", function (e) 
     const whatsappURL = `https://wa.me/919054887337?text=${encodeURIComponent(plainMessage)}`;
     window.open(whatsappURL, "_blank");
 
-    // Clear UI
+    // Reset UI
     document.querySelector(".cart-content").innerHTML = "";
     document.querySelector(".total-price").innerText = "₹0.00";
     cartCount = 0;
