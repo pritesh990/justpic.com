@@ -7,105 +7,124 @@
 }
 
 /* Header */
-/* Header */
 .head {
   width: 100%;
-  background-color: #000; /* black theme */
-  color: white;
-  padding: 12px 20px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.35) 0 8px 15px;
   position: sticky;
   top: 0;
-  z-index: 1000;
+  z-index: 1000;  /* Make sure it's above all products */
 }
 
-/* Logo Container */
-.logo {
+.head .logo {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
+  padding: 20px;
 }
-
-/* Logo Image */
 .logo img {
-  height: 40px;
+  margin-left: 37em ;
+  height: 80px;
+}
+.logo i {
+  padding: 5px;
+  font-size: 2.5em;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.logo i:hover{
+  transition: 0.3s ease;
+  color: red;
 }
 
-/* Offer Link */
-.logo .offer {
-  color: #ffcc00;
-  font-weight: bold;
-  text-decoration: none;
-  margin-left: 20px;
-  font-size: 16px;
+.icon {
+  position: relative;
+  display: inline-block;
+  font-size: 24px;
+  color: #333;
+  cursor: pointer;
+  margin: 10px;
+}
+
+.icon i {
+  font-size: 28px;
+  color: #444;
   transition: color 0.3s ease;
 }
 
-.logo .offer:hover {
-  color: #fff200;
+.icon i:hover {
+  color: #007bff; /* Hover color */
 }
 
-/* Cart Icon */
-.logo .icon {
-  position: relative;
-  cursor: pointer;
-  font-size: 24px;
-  color: #fff;
-  background-color: #111;
-  padding: 10px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.3s ease, transform 0.3s ease;
-}
-
-.logo .icon:hover {
-  background-color: #333;
-  transform: scale(1.1);
-}
-
-/* Cart Count Badge */
 #cart-count {
   position: absolute;
-  top: -5px;
-  right: -5px;
+  top: -10px;
+  right: -22px;
   background-color: red;
   color: white;
   font-size: 12px;
   font-weight: bold;
-  padding: 3px 6px;
+  padding: 2px 6px;
   border-radius: 50%;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  line-height: 1;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .logo {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
 
-  .logo img {
-    height: 35px;
-  }
-
-  .logo .offer {
-    font-size: 14px;
-  }
-
-  .logo .icon {
-    font-size: 20px;
-    padding: 8px;
-  }
-
-  #cart-count {
-    font-size: 10px;
-    padding: 2px 5px;
-  }
+.offer{
+   background-clip: padding-box;
+    border-radius: .25rem;
+    border-color: white;
+    box-sizing: border-box;
+    font-family: system-ui, -apple-system, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.25;
+    margin: 0;
+    position: relative;
+    text-decoration: none;
+    padding: 10px;
+    background-color: black;
+    color: #fff;
+    margin: 3px;
+}
+.offer:hover{
+  transition: 0.3s ease-out;
+  background-color: #28a745;
+  color: #fff;
+  
 }
 
+#cart-count {
+
+  margin-right: 30px;
+  background: red;
+  color: white;
+  font-size: 14px;
+  padding: 4px 6px;
+  border-radius: 50%;
+}
+
+.food-d{
+ width: 100%;
+ height: 28em;
+ 
+}
+.f-img{
+  display: flex;
+ align-items: center;
+ justify-content: center;
+  padding: 10px;
+}
+.f-img img{
+  width: 80%;
+  padding: 20px;
+}
+.button-f{
+ text-align: center;
+}
+.v-btn{
+  padding: 13px 20px;
+}
 
 
 /* Cart */
