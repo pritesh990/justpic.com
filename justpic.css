@@ -37,6 +37,53 @@
   color: red;
 }
 
+/* Cart Icon Container */
+.icon {
+  position: relative;
+  cursor: pointer;
+  font-size: 24px;
+  color: #fff;
+  background-color: #111; /* optional dark background */
+  padding: 10px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease;
+}
+
+.icon:hover {
+  background-color: #333; /* hover effect */
+}
+
+/* Cart Count Badge */
+#cart-count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: #ff3d00;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 3px 6px;
+  border-radius: 50%;
+  box-shadow: 0 0 5px rgba(0,0,0,0.3);
+}
+
+/* Responsive for smaller screens */
+@media (max-width: 600px) {
+  .icon {
+    font-size: 20px;
+    padding: 8px;
+  }
+
+  #cart-count {
+    font-size: 10px;
+    padding: 2px 5px;
+  }
+}
+
+
 .offer{
    background-clip: padding-box;
     border-radius: .25rem;
