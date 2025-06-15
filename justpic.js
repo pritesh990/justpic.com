@@ -185,7 +185,6 @@ document.getElementById("checkoutForm").addEventListener("submit", function (e) 
     const price = match ? parseFloat(match[1]) : 0;
     const quantity = parseInt(box.querySelector(".qty-value").textContent);
 
-    // ✅ Get the weight from the homepage card
     const foodCard = Array.from(document.querySelectorAll(".food-img")).find(card =>
       card.querySelector("h1").innerText === title
     );
@@ -198,7 +197,6 @@ document.getElementById("checkoutForm").addEventListener("submit", function (e) 
     const itemTotal = price * quantity;
     totalAmount += itemTotal;
 
-    // ✅ WhatsApp order line format
     plainMessage += `${index + 1}. ${title} - ₹${price} ${weight} × ${quantity} = ₹${itemTotal}\n`;
   });
 
@@ -218,33 +216,50 @@ document.getElementById("checkoutForm").addEventListener("submit", function (e) 
   plainMessage += `\n📞 *Customer Care:* 9054887337\n`;
   plainMessage += `🕔 *Delivery Time:* 9 AM to 11 AM\n`;
 
+  // ✅ Call with timeout fallback
   getUserLocation((locationLink) => {
-    plainMessage += `\n📍 *Location:* ${locationLink}`;
+    plainMessage += `\n📍 *Location:* ${locationLink || "Location not provided"}`;
     const whatsappURL = `https://wa.me/919054887337?text=${encodeURIComponent(plainMessage)}`;
     window.open(whatsappURL, "_blank");
 
-    // Reset UI
+    // Reset cart and form
     document.querySelector(".cart-content").innerHTML = "";
     document.querySelector(".total-price").innerText = "₹0.00";
     cartCount = 0;
     cartCountElement.textContent = cartCount;
     document.getElementById("orderForm").classList.remove("active");
-  });
+  }, 5000); // timeout after 5 sec
 });
 
-// Get user live location
-function getUserLocation(callback) {
+// Get user live location (with timeout)
+function getUserLocation(callback, timeout = 5000) {
   if ("geolocation" in navigator) {
+    let finished = false;
+
+    const timer = setTimeout(() => {
+      if (!finished) {
+        finished = true;
+        callback("Location not available (timeout)");
+      }
+    }, timeout);
+
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        const latitude = position.coords.latitude;
-        const longitude = position.coords.longitude;
-        const locationLink = `https://www.google.com/maps?q=${latitude},${longitude}`;
-        callback(locationLink);
+        if (!finished) {
+          clearTimeout(timer);
+          finished = true;
+          const latitude = position.coords.latitude;
+          const longitude = position.coords.longitude;
+          const locationLink = `https://www.google.com/maps?q=${latitude},${longitude}`;
+          callback(locationLink);
+        }
       },
       (error) => {
-        console.error("Location error:", error);
-        callback("Location not available");
+        if (!finished) {
+          clearTimeout(timer);
+          finished = true;
+          callback("Location not available");
+        }
       }
     );
   } else {
