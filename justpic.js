@@ -172,7 +172,7 @@ document.getElementById("checkoutForm").addEventListener("submit", function (e) 
     return;
   }
 
-  let plainMessage = `🛒 *New Order Received on Justpic.com*\n\n`;
+  let plainMessage = `🛒 *New Order Received on https://justpic-com-sable.vercel.app/*\n\n`;
   plainMessage += `👤 *Name:* ${name}\n📞 *Phone:* ${phone}\n🏠 *Address:* ${address}\n\n`;
   plainMessage += `🧾 *Order Details:*\n`;
 
