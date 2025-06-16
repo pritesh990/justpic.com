@@ -26,14 +26,19 @@
     h1 {
       color: #008080;
       margin-bottom: 10px;
-      font-size: 26px;
+      font-size: 32px;
     }
 
     p.sub {
-      color: #333;
-      font-size: 17px;
+      color: blue;
+      font-size: 22px;
       margin-bottom: 20px;
-      font-weight:bold;
+      font-weight: bold;
+    }
+    h4{
+      color: #333;
+      text-align: left;
+      
     }
 
     .claim-btn {
@@ -133,11 +138,11 @@
 <body>
 
   <div class="container">
-    <h1>🎁 Special Offer</h1>
-    <p class="sub">Order for 30 continuous days and get ₹100 off!</p>
-    <p class="sub">તમે 30 દિવસ દરરોજ Order કરસો તો તમને 31 મા દિવસે ₹100 નો Order ફ્રી ફ્રી ફ્રી</p>
-
-    
+    <h1>🎁Free Membership🎁</h1>
+    <p class="sub">Justpic ના Free member બનો અને મેળવો extra benifit.</p>
+    <h4>(1) ₹100 Order કરો અને 1 કલાક મા free delivery.</h4>
+      <h4>(2) મહિના ના End મા 1 Order પર ₹50 નુ discount.</h4>
+      <h4>(3) Order મા spoiled vegetables આવશે તો તમને એટલુ vegetables free મલી જશે.</h4>
 
     <!-- Claim Offer Button -->
     <button class="claim-btn" onclick="document.getElementById('offerForm').style.display='block'; this.style.display='none';">
@@ -171,13 +176,13 @@
 
     // ✅ WhatsApp Message Format
     const message = `
-🛒 *New Offer Claim on https://justpic-com-sable.vercel.app/*
+🛒 *New Member https://justpic-com-sable.vercel.app/*
 
 👤 *Name:* ${name}
 📞 *Phone:* ${phone}
 🏠 *Address:* ${address}
 📅 *Date:* ${date}
-🎁 *Offer:* 30 Days Order = ₹100 FREE
+
     `.trim();
 
     // ✅ WhatsApp Redirect
