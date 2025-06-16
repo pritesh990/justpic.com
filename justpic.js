@@ -172,7 +172,7 @@ document.getElementById("checkoutForm").addEventListener("submit", function (e) 
     return;
   }
 
-  let plainMessage = `🛒 *New Order Received on https://justpic-com-sable.vercel.app/*\n\n`;
+  let plainMessage = `🛒 *New Order Received on Justpic.com*\n\n`;
   plainMessage += `👤 *Name:* ${name}\n📞 *Phone:* ${phone}\n🏠 *Address:* ${address}\n\n`;
   plainMessage += `🧾 *Order Details:*\n`;
 
@@ -213,12 +213,14 @@ document.getElementById("checkoutForm").addEventListener("submit", function (e) 
     plainMessage += `🚚 *Delivery Charge:* Free (₹100 ઉપર ઓર્ડર માટે)\n`;
   }
 
-  plainMessage += `\n📞 *Customer Care:* 9054887337\n`;
-  plainMessage += `🕔 *Delivery Time:* 9 AM to 11 AM\n`;
+  plainMessage += `\n📞 *Customer Care:* 9054887337\n🕔 *Delivery Time:* 9 AM to 11 AM\n`;
 
-  // ✅ Call with timeout fallback
+  // Show waiting message
+  plainMessage += `\n📍 *Location:* Getting location...`;
+
+  // Get live location
   getUserLocation((locationLink) => {
-    plainMessage += `\n📍 *Location:* ${locationLink || "Location not provided"}`;
+    plainMessage = plainMessage.replace("Getting location...", locationLink);
     const whatsappURL = `https://wa.me/919054887337?text=${encodeURIComponent(plainMessage)}`;
     window.open(whatsappURL, "_blank");
 
@@ -228,18 +230,17 @@ document.getElementById("checkoutForm").addEventListener("submit", function (e) 
     cartCount = 0;
     cartCountElement.textContent = cartCount;
     document.getElementById("orderForm").classList.remove("active");
-  }, 5000); // timeout after 5 sec
+  }, 5000);
 });
 
-// Get user live location (with timeout)
+// Get user live location (with timeout and clear message)
 function getUserLocation(callback, timeout = 5000) {
   if ("geolocation" in navigator) {
     let finished = false;
-
     const timer = setTimeout(() => {
       if (!finished) {
         finished = true;
-        callback("Location not available (timeout)");
+        callback("❌ Location fetch timeout. Please try again.");
       }
     }, timeout);
 
@@ -258,11 +259,17 @@ function getUserLocation(callback, timeout = 5000) {
         if (!finished) {
           clearTimeout(timer);
           finished = true;
-          callback("Location not available");
+          if (error.code === 1) {
+            callback("❌ Location access denied by user.");
+          } else if (error.code === 2) {
+            callback("❌ Location unavailable.");
+          } else {
+            callback("❌ Unknown location error.");
+          }
         }
       }
     );
   } else {
-    callback("Geolocation not supported");
+    callback("❌ Geolocation not supported on this browser.");
   }
 }
