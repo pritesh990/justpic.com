@@ -70,29 +70,35 @@
 }
 
 
-.offer{
-   background-clip: padding-box;
-    border-radius: .25rem;
-    border-color: white;
-    box-sizing: border-box;
-    font-family: system-ui, -apple-system, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 1.25;
-    margin: 0;
-    position: relative;
-    text-decoration: none;
-    padding: 10px;
-    background-color: black;
-    color: #fff;
-    margin: 3px;
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-right: 40px;
 }
-.offer:hover{
-  transition: 0.3s ease-out;
-  background-color: #28a745;
+
+/* Updated Offer Button Style */
+.offer {
+  padding: 8px 16px;
+  background: linear-gradient(45deg, #fd4646, #ff9900);
+  border-radius: 25px;
+  color: white;
+  font-weight: bold;
+  font-size: 15px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(253, 70, 70, 0.4);
+}
+
+.offer:hover {
+  transform: scale(1.05);
+  background: linear-gradient(45deg, #28a745, #ffc107);
+  box-shadow: 0 6px 20px rgba(40, 167, 69, 0.5);
   color: #fff;
-  
 }
+
+  
+
 
 #cart-count {
 
@@ -552,6 +558,17 @@
     font-size: 1.8rem;
     margin-right: 20px;
   }
+
+  .nav-right {
+  margin-right: 10px;
+  gap: 10px;
+}
+
+.offer {
+  font-size: 13px;
+  padding: 6px 10px;
+}
+
 
   .cart {
     width: 100%;
