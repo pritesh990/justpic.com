@@ -172,8 +172,12 @@ document.getElementById("checkoutForm").addEventListener("submit", function (e) 
     return;
   }
 
+  const today = new Date();
+  const orderDate = today.toLocaleDateString("en-IN"); // dd/mm/yyyy format
+
   let plainMessage = `🛒 *New Order Received on https://justpic-com-sable.vercel.app/*\n\n`;
-  plainMessage += `👤 *Name:* ${name}\n📞 *Phone:* ${phone}\n🏠 *Address:* ${address}\n\n`;
+  plainMessage += `👤 *Name:* ${name}\n📞 *Phone:* ${phone}\n🏠 *Address:* ${address}\n`;
+  plainMessage += `🗓️ *Order Date:* ${orderDate}\n\n`;
   plainMessage += `🧾 *Order Details:*\n`;
 
   let totalAmount = 0;
@@ -214,8 +218,6 @@ document.getElementById("checkoutForm").addEventListener("submit", function (e) 
   }
 
   plainMessage += `\n📞 *Customer Care:* 9054887337\n🕔 *Delivery Time:* 9 AM to 11 AM\n`;
-
-  // Show waiting message
   plainMessage += `\n📍 *Location:* Getting location...`;
 
   // Get live location
