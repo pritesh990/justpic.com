@@ -1,1 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Justpic.com</title>
+  <link rel="stylesheet" href="justpic.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+</head>
+
+  <!-- Header -->
+    <header class="head">
+    <div class="logo">
+    <img src="logo.png" alt="Logo" />
+
+    <div class="nav-right">
+      <!--<a href="offer.html" class="offer">🎁 Offer</a>-->
+      <div class="icon">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span id="cart-count">0</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+
+
+  <!-- Cart -->
+  <div class="cart">
+    <h2 class="cart-title">Your Cart</h2>
+    <div class="cart-content"></div>
+
+  <div class="cart-sp">
+    <div class="total">
+      <div class="total-title">Total</div>
+      <div class="total-price">₹0.00</div>
+    </div>  
+
+    
+     <div class="cart-imp">
+       <h5>(1) ન્યૂનતમ ઓર્ડર ₹70 રૂપિયા નો હોવો જોયે</h5>
+       <h5>(2) ₹99 સુધી ના Order પર delivery ચાર્જ ₹20</h5>
+       <h5>(3) ₹100 ઉપર ના Order પર delivery ચાર્જ Free</h5>
+      </div>
+
+        <span class="times">*ડિલિવરી સવારે 9 AM થી 11 AM વાગ્ય સુધિ માં પોહચાડી દેવમા આવસે.*</span> 
+         
+   
+       <button type="button" class="btn-buy">Buy Now</button>
+   </div> 
+
+    <i class="fa-solid fa-xmark" id="close-cart"></i>
+ </div>
+
+
+
+<!-- Order Form Modal -->
+ 
+<div class="order-form" id="orderForm">
+  <div class="form-content">
+    <h2>Place Your Order</h2>
+    <form id="checkoutForm">
+      <input type="text" placeholder="Full Name" required />
+       
+      <input type="tel" placeholder="Phone Number" required />
+      <textarea placeholder="Address" rows="4" required></textarea>
+      <button type="submit" class="order-btn">Order</button>
+      <button type="button" id="closeForm" class="close-btn">Cancel</button>
+    </form>
+  </div>
+</div>
+
+
+  <!-- Section -->
+  <div class="section">
+    <div class="food">
+      <div class="food-img">
+        <span class="discount-badge">32% OFF</span>
+        <img src="bateka.png" alt="Bateka"/>
+        <div class="food-text">
+          <h1>Potato (બટાકા)</h1>
+          <h3>
+             ₹26 
+             <span class="old-price">₹52</span> 
+             <span>(1 kg)</span>
+          </h3>
+
+          <button class="btn">Add</button>
+        </div>
+      </div>
+
+
+      <div class="food-img">
+        <span class="discount-badge">50% OFF</span>
+        <img src="kanda.png" alt="Bateka"/>
+        <div class="food-text">
+          <h1>Onion (ડુંગળી)</h1>
+          <h3>
+             ₹21 
+             <span class="old-price">₹42</span> 
+             <span>(1 kg)</span>
+          </h3>
+          <button class="btn">Add</button>
+        </div>
+      </div>
+
+
+      <div class="food-img">
+        <span class="discount-badge">50% OFF</span>
+        <img src="tameta.png" alt="Bateka"/>
+        <div class="food-text">
+          <h1>Tomato (ટામેટા)</h1>
+          <h3>
+             ₹24 
+             <span class="old-price">₹28</span> 
+             <span>(500 g)</span>
+          </h3>
+          <button class="btn">Add</button>
+        </div>
+      </div>
+
+      <div class="food-img">
+        <span class="discount-badge">40% OFF</span>
+        <img src="bhindo.png" alt="Bateka"/>
+        <div class="food-text">
+          <h1>Okra (ભીંડા)</h1>
+          <h3>₹28  
+            <span class="old-price">₹42</span> 
+            <span>(250 g)</span></h3>
+          <button class="btn">Add</button>
+        </div>
+      </div>
+
+      <div class="food-img">
+        <span class="discount-badge">50% OFF</span>
+        <img src="ringna.png" alt="Bateka"/>
+        <div class="food-text">
+          <h1>Brinjal (રીંગણ)</h1>
+          <h3>₹23
+            <span class="old-price">₹32</span> 
+            <span>(250 g)</span></h3>
+          <button class="btn">Add</button>
+        </div>
+      </div>
+
+      <div class="food-img">
+        <span class="discount-badge">50% OFF</span>
+        <img src="cobi.png" alt="Bateka"/>
+        <div class="food-text">
+          <h1>Cabbege (કોબી)</h1>
+          <h3>₹28
+            <span class="old-price">₹44</span> 
+            <span>(500g)</span></h3>
+          <button class="btn">Add</button>
+        </div>
+      </div>
+
+      <div class="food-img">
+        <span class="discount-badge">50% OFF</span>
+        <img src="flawar.png" alt="Bateka"/>
+        <div class="food-text">
+          <h1>Cauliflower (ફૂલકોબી)</h1>
+          <h3>₹44 
+            <span class="old-price">₹88</span> 
+            <span>(1 pc)</span></h3>
+          <button class="btn">Add</button>
+        </div>
+      </div>
+
+       <!--<div class="food-img">
+        <span class="discount-badge">50% OFF</span>
+        <img src="mula.jpg" alt="Bateka"/>
+        <div class="food-text">
+          <h1>Radish (મૂળો)</h1>
+          <h3>₹ <span>(1 kg)</span></h3>
+          <button class="btn">Add</button>
+        </div>
+      </div>-->
+
+
+
+       <div class="food-img">
+        <span class="discount-badge">50% OFF</span>
+        <img src="gajar.png" alt="Bateka"/>
+        <div class="food-text">
+          <h1>Carrot (ગાજર)</h1>
+          <h3>₹21 
+            <span class="old-price">₹42</span> 
+            <span>(250 g)</span></h3>
+          <button class="btn">Add</button>
+        </div>
+      </div>
+
+
+
+       <div class="food-img">
+        <span class="discount-badge">50% OFF</span>
+        <img src="bit.png" alt="Bateka"/>
+        <div class="food-text">
+          <h1>Beetroot (બીટરૂટ)</h1>
+          <h3>₹24 
+            <span class="old-price">₹48</span> 
+            <span>(250 g)</span></h3>
+          <button class="btn">Add</button>
+        </div>
+      </div>
+
+
+
+       <div class="food-img">
+        <span class="discount-badge">50% OFF</span>
+        <img src="capsicam.png" alt="Bateka"/>
+        <div class="food-text">
+          <h1>Capsicum (કેપ્સીકમ)</h1>
+          <h3>₹31 
+            <span class="old-price">₹62</span> 
+            <span>(250 g)</span></h3>
+          <button class="btn">Add</button>
+        </div>
+      </div>
+
+
+
+       <div class="food-img">
+        <span class="discount-badge">50% OFF</span>
+        <img src="choli.png" alt="Bateka"/>
+        <div class="food-text">
+          <h1>Green bean (ચોલી)</h1>
+          <h3>₹28 
+            <span class="old-price">₹56</span> 
+            <span>(250 g)</span></h3>
+          <button class="btn">Add</button>
+        </div>
+      </div>
+
+
+
+       <div class="food-img">
+        <span class="discount-badge">50% OFF</span>
+        <img src="dhana.png" alt="Bateka"/>
+        <div class="food-text">
+          <h1>Coriander (ધાણા)</h1>
+          <h3>₹19 
+            <span class="old-price">₹38</span> 
+            <span>(100 g)</span></h3>
+          <button class="btn">Add</button>
+        </div>
+      </div>
+
+
+
+       <div class="food-img">
+        <span class="discount-badge">50% OFF</span>
+        <img src="dudhi.png" alt="Bateka"/>
+        <div class="food-text">
+          <h1>Bottle gourd (દૂધી)</h1>
+          <h3>₹22 
+             <span class="old-price">₹38</span> 
+            <span>(500 g)</span></h3>
+          <button class="btn">Add</button>
+        </div>
+      </div>
+
+
+
+       <div class="food-img">
+        <span class="discount-badge">50% OFF</span>
+        <img src="parvat.png" alt="Bateka"/>
+        <div class="food-text">
+          <h1>Parwal (પર્વત)</h1>
+          <h3>₹24 
+             <span class="old-price">₹48</span> 
+            <span>(250 g)</span></h3>
+          <button class="btn">Add</button>
+        </div>
+      </div>
+
+
+
+       <div class="food-img">
+        <span class="discount-badge">50% OFF</span>
+        <img src="karela.png" alt="Bateka"/>
+        <div class="food-text">
+          <h1>Bitter gourd (કારેલા)</h1>
+          <h3>₹29 
+            <span class="old-price">₹58</span> 
+            <span>(250 g)</span></h3>
+          <button class="btn">Add</button>
+        </div>
+      </div>
+
+
+
+       <!--<div class="food-img">
+        <span class="discount-badge">50% OFF</span>
+        <img src="lila-tameta.png" alt="Bateka"/>
+        <div class="food-text">
+          <h1>Greentomato (લીલાટમેટા)</h1>
+          <h3>₹40.04</h3>
+          <button class="btn">Add</button>
+        </div>
+      </div>-->
+
+
+
+       <div class="food-img">
+        <span class="discount-badge">50% OFF</span>
+        <img src="guvar.png" alt="Bateka"/>
+        <div class="food-text">
+          <h1>Gawar phali (ગુવાર)</h1>
+          <h3>₹39
+            <span class="old-price">₹78</span>
+            <span>(250 g)</span></h3>
+          <button class="btn">Add</button>
+        </div>
+      </div>
+
+
+
+       <div class="food-img">
+        <span class="discount-badge">50% OFF</span>
+        <img src="sarigvo.png" alt="Bateka"/>
+        <div class="food-text">
+          <h1>Drumsticks (સારિગ્વો)</h1>
+          <h3>₹34 
+            <span class="old-price">₹56</span> 
+            <span>(250 g)</span></h3>
+          <button class="btn">Add</button>
+        </div>
+      </div>
+
+
+
+       <div class="food-img">
+        <span class="discount-badge">50% OFF</span>
+        <img src="tindora.png" alt="Bateka"/>
+        <div class="food-text">
+          <h1>Tvy gourd (ટીંડોરા)</h1>
+         <h3>₹21 
+            <span class="old-price">₹42</span> 
+          <span>(250 g)</span></h3>
+          <button class="btn">Add</button>
+        </div>
+      </div>
+
+
+
+       <div class="food-img">
+        <span class="discount-badge">50% OFF</span>
+        <img src="valol.png" alt="Bateka"/>
+        <div class="food-text">
+          <h1>flat beans (વાલોલ)</h1>
+          <h3>₹28 
+            <span class="old-price">₹56</span>
+            <span>(250 g)</span></h3>
+          <button class="btn">Add</button>
+        </div>
+      </div>
+
+
+
+       <div class="food-img">
+        <span class="discount-badge">50% OFF</span>
+        <img src="palak.png" alt="Bateka"/>
+        <div class="food-text">
+          <h1>Spinach (પાલક)</h1>
+           <h3>₹29 
+             <span class="old-price">₹58</span> 
+             <span>(400 g)</span></h3>
+          <button class="btn">Add</button>
+       </div>                                                
+      </div>
+
+                                                    
+
+
+      <div class="food-img">
+        <span class="discount-badge">50% OFF</span>
+        <img src="turiya.png" alt="Bateka"/>
+        <div class="food-text">
+          <h1>Ridged gourd (તુરિયા)</h1>
+          <h3>₹31 
+            <span class="old-price">₹62</span>
+            <span>(250 g)</span></h3>
+          <button class="btn">Add</button>
+        </div>
+      </div>
+
+
+
+       <div class="food-img">
+        <span class="discount-badge">50% OFF</span>
+        <img src="mirchi.png" alt="Bateka"/>
+        <div class="food-text">
+          <h1>Chilli spicy (મિર્ચી)</h1>
+          <h3>₹10 
+            <span class="old-price">₹20</span> 
+            <span>(100 g)</span></h3>
+          <button class="btn">Add</button>
+        </div>
+      </div>
+
+
+       <!--<div class="food-img">
+        <span class="discount-badge">50% OFF</span>
+        <img src="vatana.png" alt="Bateka"/>
+        <div class="food-text">
+          <h1>Green peas (વટાણા)</h1>
+          <h3>₹ <span>(500 g)</span></h3>
+          <button class="btn">Add</button>
+        </div>
+      </div>
+
+
+       <div class="food-img">
+        <span class="discount-badge">50% OFF</span>
+        <img src="lilu-lasan.png" alt="Bateka"/>
+        <div class="food-text">
+          <h1>Green garlic (લીલુ લસન)</h1>
+          <h3>₹ <span>(500 g)</span></h3>
+          <button class="btn">Add</button>
+        </div>
+      </div>-->
+
+
+       <div class="food-img">
+        <span class="discount-badge">50% OFF</span>
+        <img src="mota-march.png" alt="Bateka"/>
+        <div class="food-text">
+          <h1>Green chilli (મધ્યમ મરચું)</h1>
+          <h3>₹21 
+            <span class="old-price">₹42</span> 
+            <span>(250 g)</span></h3>
+          <button class="btn">Add</button>
+        </div>
+      </div>
+
+
+       <div class="food-img">
+        <span class="discount-badge">50% OFF</span>
+        <img src="aadu.png" alt="Bateka"/>
+        <div class="food-text">
+          <h1>Ginger (આદુ)</h1>  
+          <h3>₹12 
+            <span class="old-price">₹24</span> 
+            <span>(125 g)</span></h3>
+          <button class="btn">Add</button>
+        </div>
+      </div>
+
+
+      <div class="food-img">
+        <span class="discount-badge">50% OFF</span>
+        <img src="limbu.png" alt="Bateka"/>
+        <div class="food-text">
+          <h1>lemon (લિમ્બુ)</h1>
+          <h3>₹25 
+            <span class="old-price">₹50</span> 
+            <span>(250 g)</span></h3>
+          <button class="btn">Add</button>
+        </div>
+      </div>
+
+
+      <div class="food-img">
+        <span class="discount-badge">50% OFF</span>
+        <img src="kakdi.png" alt="Bateka"/>
+        <div class="food-text">
+          <h1>Cucumber (કાકડી)</h1>
+          <h3>₹21 
+            <span class="old-price">₹44</span> 
+            <span>(250 g)</span></h3>
+          <button class="btn">Add</button>
+        </div>
+      </div>
+
+
+  </div>
+  </div>
+
+  <script src="justpic.js"></script>
+ 
+  </body>
+  </html>
 
